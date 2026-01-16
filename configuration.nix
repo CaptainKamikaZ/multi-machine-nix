@@ -1,1 +1,310 @@
-/etc/nixos/configuration.nix
+{ config, pkgs, ... }:
+
+{
+  ############################################################
+  # Imports
+  ############################################################
+  imports = [
+    ./hardware-configuration.nix
+    <home-manager/nixos>
+  ];
+
+  ############################################################
+  # Bootloader
+  ############################################################
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
+
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+
+  boot.kernelModules = [ "v4l2loopback" ];
+
+  # Optional but recommended for OBS
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=10 card_label="OBS Virtual Camera" exclusive_caps=1
+  '';
+
+
+  ###########################################################
+  # Nix Settings
+  ###########################################################
+  nix.settings = {
+    experimental-features = [ "nix-command" ];
+  };
+
+
+
+  ###########################################################
+  # NVIDIA (Offload-Only + Sleep Stability)
+  ###########################################################
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    powerManagement.enable = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload.enable = true;
+      offload.enableOffloadCmd = true;
+      sync.enable = false;
+      amdgpuBusId = "PCI:0:0:0"; # Fake iGPU
+      nvidiaBusId = "PCI:43:0:0"; # Nvidia RTX 3060
+    };
+  };
+
+  hardware.graphics = {
+    enable = true;
+  };
+  services.xserver.videoDrivers = ["nvidia" "modesetting"];
+
+
+  ############################################################
+  # Sound
+  ############################################################
+  services.pipewire.wireplumber.extraConfig = { 
+    "10-dp-audio-activation" = { 
+      "monitor.rules" = [ 
+        { 
+          matches = [ 
+            { "device.name" = "alsa_card.pci-0000_2b_00.1"; } 
+          ]; 
+          actions.update-props = { 
+            "api.acp.auto-port" = "true"; 
+          }; 
+        } 
+      ]; 
+    }; 
+  };
+
+
+  ############################################################
+  # Networking
+  ############################################################
+  networking = {
+    hostName = "justin-nix";
+    networkmanager.enable = true;
+    useDHCP = false;
+
+    defaultGateway = {
+      address = "192.168.0.1";
+      interface = "enp34s0";
+    };
+
+    nameservers = [
+      "192.168.0.40"
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
+
+    interfaces.enp34s0 = {
+      useDHCP = false;
+      ipv4.addresses = [
+        {
+          address = "192.168.0.232";
+          prefixLength = 24;
+        }
+      ];
+    };
+  };
+
+  ############################################################
+  # Garbage Collection
+  ############################################################
+  nix = {
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
+  ############################################################
+  # Locale & Time
+  ############################################################
+  time.timeZone = "America/Chicago";
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  ############################################################
+  # Desktop Environment (KDE Plasma 6)
+  ############################################################
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = false;
+    extraPortals = [
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
+    config = {
+      common.default = [ "kde" ];
+    };
+  };
+
+
+
+  ############################################################
+  # Printing
+  ############################################################
+  services.printing.enable = true;
+
+  ############################################################
+  # Audio (PipeWire)
+  ############################################################
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  ############################################################
+  # User Account
+  ############################################################
+  users.users.justin = {
+    isNormalUser = true;
+    description = "Justin Gabrielson";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+
+    packages = with pkgs; [
+      audacity
+      davinci-resolve
+      discord
+      easyeffects
+      filezilla
+      gimp
+      helvum
+      kdePackages.kate
+      obsidian
+      obs-cmd
+      onlyoffice-desktopeditors
+      thunderbird
+      vlc
+      vscode
+    ];
+  };
+
+  programs.obs-studio = {
+    enable = true;
+
+    package = pkgs.obs-studio;
+
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-move-transition
+      obs-pipewire-audio-capture
+      obs-transition-table
+    ];
+  };
+  nixpkgs.overlays = [
+    (final: prev: {
+      obs-studio = (import (builtins.fetchTarball {
+        # Known-good unstable commit with browser support
+        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+      }) { system = prev.system; }).obs-studio;
+    })
+  ];
+
+
+  ############################################################
+  # Home Manager (User-level config)
+  ############################################################
+  home-manager.users.justin = {
+    home.stateVersion = "25.11";
+
+    programs.firefox.enable = true;
+    programs.home-manager.enable = true;
+
+    home.packages = with pkgs; [ 
+      conky
+    ];
+  };
+
+  ############################################################
+  # System Programs
+  ############################################################
+  programs.steam.enable = true;
+
+  ############################################################
+  # Unfree Packages
+  ############################################################
+  nixpkgs.config.allowUnfree = true;
+
+  ############################################################
+  # System Packages
+  ############################################################
+  environment.systemPackages = with pkgs; [
+    alsa-utils
+    cifs-utils
+    gh
+    git
+    home-manager
+    inetutils
+    nextcloud-client
+    pciutils
+    prismlauncher
+    pulseaudio
+    streamcontroller
+    tailscale
+    timeshift
+    vim
+    wget
+  ];
+
+  fonts = {
+    fontDir.enable = true;
+    fontconfig.enable = true;
+    packages = with pkgs; [
+      dejavu_fonts
+    ];
+  };
+
+
+  ############################################################
+  # Samba Mount
+  ############################################################
+  fileSystems."/mnt/share" = {
+    device = "//192.168.0.205/public";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in [
+      "${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"
+    ];
+  };
+
+  ############################################################
+  # Services
+  ############################################################
+  services.tailscale.enable = true;
+  services.gvfs.enable = true;
+
+  ############################################################
+  # System State Version
+  ############################################################
+  system.stateVersion = "25.11";
+}

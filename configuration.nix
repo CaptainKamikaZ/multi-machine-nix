@@ -18,11 +18,21 @@
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot";
   };
-  
+  boot.loader.timeout = 5;
+
   boot.loader.grub = {
     enable = true;
     efiSupport = true;
     device = "nodev";
+    configurationLimit = 10;
+    extraEntries = ''
+      menuentry "Linux Mint" {
+        insmod part_gpt
+        insmod fat
+        search --nofloppy --fsuuid --set=root 0D17-D00F
+        chainloader /EFI/ubuntu/grubx64.efi
+      }
+    '';
   };
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -220,7 +230,7 @@
 
   programs.obs-studio = {
     enable = true;
-
+    enableScriptings = true;
     package = pkgs.obs-studio;
 
     plugins = with pkgs.obs-studio-plugins; [

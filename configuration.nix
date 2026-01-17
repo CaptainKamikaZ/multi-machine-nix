@@ -5,16 +5,25 @@
   # Imports
   ############################################################
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
     <home-manager/nixos>
   ];
 
   ############################################################
   # Bootloader
   ############################################################
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.systemd-boot.enable = false;
+  #boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.efi = { 
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/boot";
+  };
+  
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+  };
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
 

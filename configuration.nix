@@ -9,6 +9,7 @@
     <home-manager/nixos>
   ];
 
+
   ############################################################
   # Bootloader
   ############################################################
@@ -230,23 +231,13 @@
 
   programs.obs-studio = {
     enable = true;
-    enableScriptings = true;
-    package = pkgs.obs-studio;
-
     plugins = with pkgs.obs-studio-plugins; [
       obs-move-transition
-      obs-pipewire-audio-capture
       obs-transition-table
+      obs-pipewire-audio-capture
     ];
   };
-  nixpkgs.overlays = [
-    (final: prev: {
-      obs-studio = (import (builtins.fetchTarball {
-        # Known-good unstable commit with browser support
-        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-      }) { system = prev.system; }).obs-studio;
-    })
-  ];
+
 
 
   ############################################################

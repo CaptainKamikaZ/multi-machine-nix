@@ -54,7 +54,6 @@
   };
 
 
-
   ###########################################################
   # NVIDIA (Offload-Only + Sleep Stability)
   ###########################################################
@@ -221,7 +220,7 @@
       helvum
       kdePackages.kate
       obsidian
-      obs-cmd
+      #obs-cmd
       onlyoffice-desktopeditors
       thunderbird
       vlc
@@ -245,7 +244,9 @@
   ############################################################
   home-manager.users.justin = {
     home.stateVersion = "25.11";
-
+    imports = [ 
+      /home/justin/.config/home-manager/home.nix 
+    ];
     programs.firefox.enable = true;
     programs.home-manager.enable = true;
 
@@ -275,12 +276,14 @@
     home-manager
     inetutils
     nextcloud-client
+    obs-cmd
     pciutils
     prismlauncher
     pulseaudio
     streamcontroller
     tailscale
     timeshift
+    v4l-utils
     vim
     wget
   ];

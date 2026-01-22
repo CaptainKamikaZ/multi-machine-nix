@@ -27,15 +27,6 @@
     device = "nodev";
     configurationLimit = 10;
     useOSProber = true;
-#    extraEntries = ''
-#      menuentry "Windows 11" {
-#        insmod part_gpt
-#        insmod fat
-#        insmod ntfs
-#        search --nofloppy --fsuuid --set=root F4A6-93B5
-#        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-#      }
-#    '';
   };
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -51,10 +42,18 @@
   ###########################################################
   # Nix Settings
   ###########################################################
-  nix.settings = {
-    experimental-features = [ "nix-command" ];
-  };
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
 
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
 
   ###########################################################
   # NVIDIA (Offload-Only + Sleep Stability)
@@ -130,17 +129,6 @@
     };
   };
 
-  ############################################################
-  # Garbage Collection
-  ############################################################
-  nix = {
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
 
   ############################################################
   # Locale & Time
@@ -222,10 +210,8 @@
       helvum
       kdePackages.kate
       obsidian
-      #obs-cmd
       onlyoffice-desktopeditors
       thunderbird
-      vlc
       vscode
     ];
   };
@@ -287,6 +273,7 @@
     timeshift
     v4l-utils
     vim
+    vlc
     wget
   ];
 

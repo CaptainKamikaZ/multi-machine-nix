@@ -55,6 +55,7 @@
   # Shell configuration (optional)
   ############################################################
   programs.bash.enable = true;
+  programs.firefox.enable = true;
 
   ############################################################
   # Git configuration (optional)

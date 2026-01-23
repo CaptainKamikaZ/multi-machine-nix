@@ -202,7 +202,6 @@
 
     packages = with pkgs; [
       audacity
-      davinci-resolve
       discord
       easyeffects
       filezilla
@@ -259,10 +258,12 @@
   environment.systemPackages = with pkgs; [
     alsa-utils
     cifs-utils
+    davinci-resolve
     gh
     git
     home-manager
     inetutils
+    kdePackages.kdenlive
     nextcloud-client
     obs-cmd
     pciutils

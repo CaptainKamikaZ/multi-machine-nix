@@ -27,6 +27,7 @@
     device = "nodev";
     configurationLimit = 10;
     useOSProber = true;
+    theme = "/home/justin/.config/grub/hyperfluent-nixos/";
   };
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];

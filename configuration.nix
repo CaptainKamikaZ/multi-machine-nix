@@ -239,7 +239,6 @@
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [ 
-      conky
     ];
   };
 
@@ -260,6 +259,7 @@
     alsa-utils
     cifs-utils
     davinci-resolve
+    eww
     gh
     git
     home-manager

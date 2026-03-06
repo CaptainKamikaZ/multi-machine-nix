@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
   ############################################################
   # Basic Home Manager settings
   ############################################################
@@ -13,52 +11,29 @@
   programs.home-manager.enable = true;
 
   ############################################################
-  # User Packages
+  # Packages installed for your user
   ############################################################
   home.packages = with pkgs; [
-    # CLI tools
+    eww
+    dejavu_fonts
     fastfetch
     htop
     lm_sensors
     slurp
-
-    # GUI apps (user-level)
-    audacity
-    discord
-    easyeffects
-    eww
-    filezilla
-    gimp
-    helvum
-    kdePackages.kate
-    obsidian
-    onlyoffice-desktopeditors
-    thunderbird
-    vscode
-    wezterm
   ];
 
   ############################################################
-  # Dotfiles & Config Files
+  # eww configuration
   ############################################################
-
-  # Eww
   xdg.configFile."eww/eww.yuck".source = ./eww/eww.yuck;
   xdg.configFile."eww/eww.scss".source = ./eww/eww.scss;
   xdg.configFile."eww/scripts".source = ./eww/scripts;
 
-  # WezTerm
-  programs.wezterm = {
-    enable = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
-  };
+  wayland.windowManager.sway.config.startup = [
+    { command = "eww daemon"; always = true; }
+    { command = "eww open sysmon"; always = true; }
+  ];
 
-  # Niri (user session)
-  xdg.configFile."niri/config.kdl".source = ./config.kdl;
-
-  ############################################################
-  # User Services (systemd --user)
-  ############################################################
   systemd.user.services.eww = {
     Unit = {
       Description = "Eww daemon";
@@ -72,47 +47,31 @@
       WantedBy = [ "default.target" ];
     };
   };
+  
 
-  # Optional: auto-start widgets
-  systemd.user.services."eww-open-sysmon" = {
-    Unit = {
-      Description = "Open Eww sysmon widget";
-      After = [ "eww.service" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.eww}/bin/eww open sysmon";
-      Type = "oneshot";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
+
+
 
   ############################################################
-  # XDG Base Directory Support
+  # XDG base directory support (recommended)
   ############################################################
   xdg.enable = true;
 
   ############################################################
-  # Shell
+  # Shell configuration (optional)
   ############################################################
   programs.bash.enable = true;
-
-  ############################################################
-  # Firefox
-  ############################################################
   programs.firefox.enable = true;
 
   ############################################################
-  # Git
+  # Git configuration (optional)
   ############################################################
-  programs.git = {
+  programs.git.settings = {
     enable = true;
-    settings = {
-      user = {
-        name = "Justin Gabrielson";
-        email = "justingabrielson@hotmail.com";
-      };
-    };
+    user.name = "Justin Gabrielson";
+    user.email = "justingabrielson@hotmail.com";
+
   };
+
 }
+

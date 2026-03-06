@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sensors nvme-pci-0100 | awk '/Composite/ {print $2}'

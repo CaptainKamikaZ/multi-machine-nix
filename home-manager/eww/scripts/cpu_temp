@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sensors k10temp-pci-00c3 | awk '/Tctl/ {print $2}'

@@ -174,7 +174,6 @@
   };
 
 
-
   ############################################################
   # Printing
   ############################################################
@@ -200,22 +199,13 @@
     isNormalUser = true;
     description = "Justin Gabrielson";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-
-    packages = with pkgs; [
-      audacity
-      discord
-      easyeffects
-      filezilla
-      gimp
-      helvum
-      kdePackages.kate
-      obsidian
-      onlyoffice-desktopeditors
-      thunderbird
-      vscode
-    ];
   };
+  home-manager.users.justin = import /home/justin/.config/home-manager/home.nix;
 
+  ############################################################
+  # System Programs
+  ############################################################
+  programs.steam.enable = true;
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
@@ -224,28 +214,7 @@
       obs-pipewire-audio-capture
     ];
   };
-
-
-
-  ############################################################
-  # Home Manager (User-level config)
-  ############################################################
-  home-manager.users.justin = {
-    home.stateVersion = "25.11";
-    imports = [ 
-      /home/justin/.config/home-manager/home.nix 
-    ];
-    programs.firefox.enable = true;
-    programs.home-manager.enable = true;
-
-    home.packages = with pkgs; [ 
-    ];
-  };
-
-  ############################################################
-  # System Programs
-  ############################################################
-  programs.steam.enable = true;
+  programs.niri.enable = true;
 
   ############################################################
   # Unfree Packages
@@ -257,9 +226,9 @@
   ############################################################
   environment.systemPackages = with pkgs; [
     alsa-utils
+    brave
     cifs-utils
     davinci-resolve
-    eww
     gh
     git
     home-manager
@@ -277,13 +246,29 @@
     vim
     vlc
     wget
+
+    noctalia
+    swaylock-effects
+    xwayland-satellite
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      noctalia = (builtins.getFlake "github:noctalia-dev/noctalia-shell").packages.${prev.stdenv.hostPlatform.system}.default;
+    })
   ];
 
   fonts = {
+    enableDefaultPackages = true;
     fontDir.enable = true;
     fontconfig.enable = true;
     packages = with pkgs; [
       dejavu_fonts
+      iosevka
+      liberation_ttf
+      ubuntu-classic
+      hack-font
+      cascadia-code
     ];
   };
 
@@ -291,15 +276,29 @@
   ############################################################
   # Samba Mount
   ############################################################
-  fileSystems."/mnt/share" = {
-    device = "//192.168.0.205/public";
+  # START SAMBA MOUNT CONFIG
+  fileSystems."/mnt/share/media" = {
+    device = "//192.168.0.30/media";
     fsType = "cifs";
     options = let
+      # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in [
-      "${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"
+
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=3000"];
+  };
+
+  # START NFS MOUNT CONFIG
+  fileSystems."/mnt/share/data/foundry" = {
+    device = "192.168.0.30:/mnt/tank/data/foundry";
+    fsType = "nfs";
+    options = [
+      "rw"
+      "hard"
+      "intr"
+      "nfsvers=4.2"
     ];
   };
+
 
   ############################################################
   # Services

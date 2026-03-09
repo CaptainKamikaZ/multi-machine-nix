@@ -47,7 +47,6 @@ in
   ############################################################
 
   # GTK
-  
   qt = {
     enable = true;
     style = {
@@ -70,34 +69,6 @@ in
   ############################################################
   # User Services (systemd --user)
   ############################################################
-  systemd.user.services.eww = {
-    Unit = {
-      Description = "Eww daemon";
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.eww}/bin/eww daemon";
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
-
-  # Optional: auto-start widgets
-  systemd.user.services."eww-open-sysmon" = {
-    Unit = {
-      Description = "Open Eww sysmon widget";
-      After = [ "eww.service" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.eww}/bin/eww open sysmon";
-      Type = "oneshot";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
 
   ############################################################
   # XDG Base Directory Support

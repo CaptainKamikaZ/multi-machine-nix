@@ -154,7 +154,9 @@
   ############################################################
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6 = {
+    enable = true;
+  };
 
   services.xserver.xkb = {
     layout = "us";
@@ -231,6 +233,7 @@
     davinci-resolve
     gh
     git
+    gvfs
     home-manager
     inetutils
     kdePackages.kdenlive
@@ -248,7 +251,8 @@
     wget
 
     noctalia
-    swaylock-effects
+    polkit
+    quickshell
     xwayland-satellite
   ];
 
@@ -272,6 +276,10 @@
     ];
   };
 
+  environment.variables = {
+    GTK_THEME = "Breeze-Dark";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+  };
 
   ############################################################
   # Samba Mount
@@ -279,7 +287,7 @@
   # START SAMBA MOUNT CONFIG
   fileSystems."/mnt/share/media" = {
     device = "//192.168.0.30/media";
-    fsType = "cifs";
+    fsType = "autofs";
     options = let
       # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
@@ -290,7 +298,7 @@
   # START NFS MOUNT CONFIG
   fileSystems."/mnt/share/data/foundry" = {
     device = "192.168.0.30:/mnt/tank/data/foundry";
-    fsType = "nfs";
+    fsType = "nfs4";
     options = [
       "rw"
       "hard"

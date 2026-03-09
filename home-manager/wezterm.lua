@@ -6,15 +6,15 @@ local config = {}
 
 config.color_scheme = "Tokyo Night Storm"  -- Best match for your cosmic background
 
-config.window_background_opacity = 0.88
+config.window_background_opacity = 0.9
 config.text_background_opacity = 0.9
 
 config.macos_window_background_blur = 0  -- ignored on Linux but harmless
 config.window_padding = {
-  left = 8,
-  right = 8,
-  top = 6,
-  bottom = 6,
+  left = 2,
+  right = 2,
+  top = 2,
+  bottom = 2,
 }
 
 -- Fonts --------------------------------------------------------------------
@@ -23,8 +23,8 @@ config.font = wezterm.font_with_fallback({
   "JetBrains Mono Regular",
   "Hack",
 })
-config.font_size = 12.5
-config.line_height = 1.05
+config.font_size = 12
+config.line_height = 1.0
 
 -- Window Frame -------------------------------------------------------------
 
@@ -80,5 +80,6 @@ config.keys = {
 
 config.scrollback_lines = 5000
 config.audible_bell = "Disabled"
+config.enable_wayland = false
 
 return config

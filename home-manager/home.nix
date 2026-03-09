@@ -1,5 +1,10 @@
 { config, pkgs, lib, ... }:
 
+let
+  # Import the same Nixpkgs your system uses
+  unstablePkgs = import <nixos-unstable> { };
+in
+
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -26,7 +31,6 @@
     audacity
     discord
     easyeffects
-    eww
     filezilla
     gimp
     helvum
@@ -42,19 +46,26 @@
   # Dotfiles & Config Files
   ############################################################
 
-  # Eww
-  xdg.configFile."eww/eww.yuck".source = ./eww/eww.yuck;
-  xdg.configFile."eww/eww.scss".source = ./eww/eww.scss;
-  xdg.configFile."eww/scripts".source = ./eww/scripts;
+  # GTK
+  
+  qt = {
+    enable = true;
+    style = {
+      name = "adwaita-dark";
+    };
+  };
+
+  # Niri (user session)
+  xdg.configFile."niri/config.kdl" = {
+    source = ./config.kdl;
+    force = true;
+  };
 
   # WezTerm
   programs.wezterm = {
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };
-
-  # Niri (user session)
-  xdg.configFile."niri/config.kdl".source = ./config.kdl;
 
   ############################################################
   # User Services (systemd --user)
@@ -92,6 +103,8 @@
   # XDG Base Directory Support
   ############################################################
   xdg.enable = true;
+  xdg.configFile."quickshell/noctalia-shell".source =
+    "${unstablePkgs.noctalia-shell}/share/noctalia-shell";
 
   ############################################################
   # Shell

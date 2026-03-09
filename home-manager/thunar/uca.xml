@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<action>
+    <icon>utilities-terminal</icon>
+    <name>Open WezTerm Here</name>
+    <command>wezterm start --cwd %f</command>
+    <description>Open WezTerm in this directory</description>
+    <patterns>*</patterns>
+    <directories/>
+</action>
+
+<action>
+  <icon>system-run</icon>
+  <name>Open as Root</name>
+  <command>pkexec thunar %f</command>
+  <patterns>*</patterns>
+  <directories/>
+</action>
+
+<action>
+  <name>Copy Path</name>
+  <command>printf "%f" | wl-copy</command>
+  <patterns>*</patterns>
+  <directories/>
+  <files/>
+</action>
+
+</actions>

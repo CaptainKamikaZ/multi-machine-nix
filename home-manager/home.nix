@@ -69,6 +69,20 @@ in
   ############################################################
   # User Services (systemd --user)
   ############################################################
+  systemd.user.services.polkit-agent = {
+    Unit = {
+      Description = "Polkit Authentication Agent";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
 
   ############################################################
   # XDG Base Directory Support

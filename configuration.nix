@@ -1,12 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 
 {
   ############################################################
   # Imports
   ############################################################
   imports = [
-    /etc/nixos/hardware-configuration.nix
-    <home-manager/nixos>
+    ./hardware-configuration.nix
   ];
 
 
@@ -27,7 +26,7 @@
     device = "nodev";
     configurationLimit = 10;
     useOSProber = true;
-    theme = "/home/justin/.config/grub/hyperfluent-nixos/";
+    theme = pkgs.callPackage (self.outPath + "/grub-theme.nix") {};
   };
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -77,6 +76,7 @@
 
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
   services.xserver.videoDrivers = ["nvidia" "modesetting"];
 
@@ -104,7 +104,7 @@
   # Networking
   ############################################################
   networking = {
-    hostName = "justin-nix";
+    hostName = "nixos";
     networkmanager.enable = true;
     useDHCP = false;
 
@@ -202,12 +202,18 @@
     description = "Justin Gabrielson";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
-  home-manager.users.justin = import /home/justin/.config/home-manager/home.nix;
+#  home-manager.users.justin = import ./home.nix;
+#  home-manager.useGlobalPkgs = true;
+#  home-manager.useUserPackages = true;
 
   ############################################################
   # System Programs
   ############################################################
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
@@ -241,6 +247,7 @@
     obs-cmd
     pciutils
     prismlauncher
+    protonup-qt
     pulseaudio
     streamcontroller
     tailscale
@@ -254,12 +261,6 @@
     polkit
     quickshell
     xwayland-satellite
-  ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      noctalia = (builtins.getFlake "github:noctalia-dev/noctalia-shell").packages.${prev.stdenv.hostPlatform.system}.default;
-    })
   ];
 
   fonts = {

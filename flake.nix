@@ -2,57 +2,58 @@
   description = "Justin's NixOS configuration";
 
   inputs = {
-    # Your base system stays on stable 25.11
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-    # Home Manager matching your system
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Pull Niri *only* from unstable
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    noctalia-shell.url = "github:noctalia-dev/noctalia-shell";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, noctalia-shell, ... }:
   let
     system = "x86_64-linux";
+    lib = nixpkgs.lib;
   in {
-    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
 
       specialArgs = {
-        inherit self home-manager;
+        inherit self;
       };
 
       modules = [
+
         ./configuration.nix
 
-        # Home Manager module
-        home-manager.nixosModules.home-manager
-        
         {
-          home-manager.users.justin = {
-            imports = [
-              ./home.nix
-            ];
-          };
-        }
+          nixpkgs.config.allowUnfree = true;
 
-        # ⭐ Overlay: import Niri from unstable
-        {
           nixpkgs.overlays = [
-            # Your existing noctalia overlay
             (final: prev: {
               noctalia =
-                (builtins.getFlake "github:noctalia-dev/noctalia-shell")
-                .packages.${prev.stdenv.hostPlatform.system}.default;
+                noctalia-shell.packages.${prev.stdenv.hostPlatform.system}.default;
             })
 
-            # ⭐ Niri overlay from unstable
             (final: prev: {
               niri = nixpkgs-unstable.legacyPackages.${system}.niri;
             })
           ];
+        }
+
+        home-manager.nixosModules.home-manager
+
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+
+          home-manager.users.justin = {
+            imports = [ ./home.nix ];
+            nixpkgs.config.allowUnfree = true;
+            home.stateVersion = "25.11";
+          };
         }
       ];
     };

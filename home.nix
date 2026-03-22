@@ -9,8 +9,6 @@ in
     ./modules/kde-env.nix
   ];
 
-#  nixpkgs.config.allowUnfree = true;
-
   ############################################################
   # Basic Home Manager settings
   ############################################################

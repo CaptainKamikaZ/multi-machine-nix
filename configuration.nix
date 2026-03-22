@@ -202,9 +202,6 @@
     description = "Justin Gabrielson";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
-#  home-manager.users.justin = import ./home.nix;
-#  home-manager.useGlobalPkgs = true;
-#  home-manager.useUserPackages = true;
 
   ############################################################
   # System Programs
@@ -240,7 +237,7 @@
     gh
     git
     gvfs
-    home-manager
+    #home-manager
     inetutils
     kdePackages.kdenlive
     nextcloud-client

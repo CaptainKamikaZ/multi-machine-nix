@@ -72,10 +72,10 @@ in
   };
   xdg.configFile."gtk-3.0/bookmarks" = {
     text = ''
+      file:///home/justin/Downloads
       file:///home/justin/Nextcloud/Documents
       file:///home/justin/Nextcloud/Photos
       file:///home/justin/Videos
-      file:///home/justin/Downloads
       file:///home/justin/Nextcloud/Livestream%20Assets
       file:///mnt/share/data/foundry
       file:///mnt/STORAGE
@@ -119,6 +119,11 @@ in
   xdg.mimeApps.defaultApplications = {
     "application/x-terminal-emulator" = "wezterm.desktop";
     "TerminalEmulator" = "wezterm.desktop";
+  };
+
+  xdg.userDirs = {
+    enable = true;
+    desktop = null;
   };
 
   ############################################################

@@ -8,6 +8,7 @@
     <description>Open WezTerm in this directory</description>
     <patterns>*</patterns>
     <directories/>
+    <startup-notify/>
 </action>
 
 <action>
@@ -16,6 +17,7 @@
   <command>pkexec thunar %f</command>
   <patterns>*</patterns>
   <directories/>
+  <startup-notify/>
 </action>
 
 <action>
@@ -24,6 +26,7 @@
   <patterns>*</patterns>
   <directories/>
   <files/>
+  <startup-notify/>
 </action>
 
 </actions>

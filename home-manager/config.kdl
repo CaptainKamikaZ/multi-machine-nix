@@ -296,7 +296,7 @@ spawn-at-startup "waybar"
 //spawn-at-startup "/nix/store/8qc0cvnv90i1a5xlixawqgw2w82hvvsa-noctalia-shell-2026-03-11_8005958/bin/noctalia-shell"
 spawn-at-startup "/run/current-system/sw/bin/qs"
 spawn-at-startup "/run/current-system/sw/bin/noctalia-shell"
-spawn-at-startup "kded6"
+spawn-at-startup "~/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

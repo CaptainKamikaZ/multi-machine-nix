@@ -41,6 +41,7 @@ in
     thunderbird
     vscode
     wezterm
+    xfce.thunar-volman
   ];
 
   ############################################################
@@ -58,6 +59,29 @@ in
   # Niri (user session)
   xdg.configFile."niri/config.kdl" = {
     source = ./home-manager/config.kdl;
+    force = true;
+  };
+
+  # Thunar
+  xdg.configFile = {
+    "Thunar/accels.scm".source = ./home-manager/thunar/accels.scm;
+    "Thunar/uca.xml" = {
+      source = ./home-manager/thunar/uca.xml;
+      force = true;
+    };
+  };
+  xdg.configFile."gtk-3.0/bookmarks" = {
+    text = ''
+      file:///home/justin/Nextcloud/Documents
+      file:///home/justin/Nextcloud/Photos
+      file:///home/justin/Videos
+      file:///home/justin/Downloads
+      file:///home/justin/Nextcloud/Livestream%20Assets
+      file:///mnt/share/data/foundry
+      file:///mnt/STORAGE
+      file:///mnt/STORAGE2
+      file:///mnt/STORAGE3
+    '';
     force = true;
   };
 
@@ -91,6 +115,11 @@ in
   xdg.enable = true;
   xdg.configFile."quickshell/noctalia-shell".source =
     "${unstablePkgs.noctalia}/share/noctalia-shell";
+
+  xdg.mimeApps.defaultApplications = {
+    "application/x-terminal-emulator" = "wezterm.desktop";
+    "TerminalEmulator" = "wezterm.desktop";
+  };
 
   ############################################################
   # Shell

@@ -1,4 +1,4 @@
-{ config, pkgs, self, ... }:
+{ config, pkgs, lib, self, ... }:
 
 {
   ############################################################
@@ -200,7 +200,7 @@
   users.users.justin = {
     isNormalUser = true;
     description = "Justin Gabrielson";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "storage" ];
   };
 
   ############################################################
@@ -237,7 +237,6 @@
     gh
     git
     gvfs
-    #home-manager
     inetutils
     kdePackages.kdenlive
     nextcloud-client
@@ -258,6 +257,7 @@
     polkit
     quickshell
     xwayland-satellite
+    xfce.thunar
   ];
 
   fonts = {
@@ -311,6 +311,7 @@
   ############################################################
   services.tailscale.enable = true;
   services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
   ############################################################
   # System State Version

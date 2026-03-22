@@ -49,6 +49,8 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
+          home-manager.backupFileExtension = "backup";
+
           home-manager.users.justin = {
             imports = [ ./home.nix ];
             nixpkgs.config.allowUnfree = true;

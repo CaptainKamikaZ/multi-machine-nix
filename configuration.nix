@@ -255,6 +255,7 @@
     pulseaudio
     streamcontroller
     tailscale
+    temurin-bin-25 #java25
     timeshift
     v4l-utils
     vim

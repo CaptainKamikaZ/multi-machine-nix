@@ -267,6 +267,7 @@
     quickshell
     xwayland-satellite
     xfce.thunar
+    xfce.tumbler
   ];
 
   fonts = {

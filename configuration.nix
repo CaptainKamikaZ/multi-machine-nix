@@ -191,7 +191,7 @@
   hardware.printers.ensurePrinters = [
     {
       name = "hpprinter";
-      deviceUri = "ipp://192.168.0.136/ipp/print";
+      deviceUri = "ipp://192.168.0.80/ipp/print";
       model = "everywhere";
     }
   ];

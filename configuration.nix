@@ -198,6 +198,10 @@
   services.printing.defaultShared = false;
   services.printing.listenAddresses = [ "localhost" ];
   services.printing.allowFrom = [ "localhost" ];
+  systemd.services.ensure-printers = {
+    after = [ "network-online.target" "cups.service" ];
+    wants = [ "network-online.target" ];
+  };
 
   ############################################################
   # Audio (PipeWire)

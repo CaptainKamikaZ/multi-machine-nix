@@ -56,7 +56,7 @@
   };
 
   ###########################################################
-  # NVIDIA (Offload-Only + Sleep Stability)
+  # NVIDIA
   ###########################################################
 
   hardware.nvidia = {
@@ -66,9 +66,7 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
-      offload.enable = true;
-      offload.enableOffloadCmd = true;
-      sync.enable = false;
+      sync.enable = true;
       amdgpuBusId = "PCI:0:0:0"; # Fake iGPU
       nvidiaBusId = "PCI:43:0:0"; # Nvidia RTX 3060
     };
@@ -161,7 +159,16 @@
   # Desktop Environment (KDE Plasma 6)
   ############################################################
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    settings = {
+      General = {
+        DisplayServer = "wayland";
+        WaylandCompositorCommand = "${pkgs.kdePackages.kwin}/bin/kwin_wayland --no-lockscreen --no-global-shortcuts";
+      };
+    };
+  };
   services.desktopManager.plasma6 = {
     enable = true;
   };

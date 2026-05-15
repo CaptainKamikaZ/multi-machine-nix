@@ -23,7 +23,6 @@
   # ---------------------------------------------------------------------------
   # Force-overwrite legacy files so Home Manager can fully manage your desktop
   # ---------------------------------------------------------------------------
-  home.file.".gtkrc-2.0".force = true;
 
   xdg.configFile."user-dirs.dirs".force = true;
 

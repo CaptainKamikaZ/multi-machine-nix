@@ -9,6 +9,7 @@
     ./wezterm.nix
     ./firefox.nix
     ./git.nix
+    ./noctalia.nix
     ./xdg.nix
     ./services.nix
   ];

@@ -32,15 +32,19 @@
         modules = [
           ./hosts/desktop
           ./modules/shared/grub-theme.nix
+
           home-manager.nixosModules.home-manager
+
           {
-            home-manager.useGlobalPkgs = false;
-            home-manager.useUserPackages = true;
-            home-manager.users.justin = import ./home/justin;
-            home-manager.users.justin.nixpkgs = {
+            nixpkgs = {
               config.allowUnfree = true;
               overlays = overlays;
             };
+
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.justin = import ./home/justin;
           }
         ];
       };
@@ -51,15 +55,19 @@
         modules = [
           ./hosts/laptop
           ./modules/shared/grub-theme.nix
+
           home-manager.nixosModules.home-manager
+
           {
-            home-manager.useGlobalPkgs = false;
-            home-manager.useUserPackages = true;
-            home-manager.users.justin = import ./home/justin;
-            home-manager.users.justin.nixpkgs = {
+            nixpkgs = {
               config.allowUnfree = true;
               overlays = overlays;
             };
+
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.justin = import ./home/justin;
           }
         ];
       };

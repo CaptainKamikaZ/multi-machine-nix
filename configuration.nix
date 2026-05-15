@@ -166,6 +166,7 @@
   # Desktop Environment (KDE Plasma 6)
   ############################################################
   services.xserver.enable = true;
+  services.xserver.desktopManager.xfce.enable = false;
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
@@ -261,17 +262,11 @@
   programs.niri.enable = true;
 
   ############################################################
-  # Unfree Packages
-  ############################################################
-  nixpkgs.config.allowUnfree = true;
-
-  ############################################################
   # System Packages
   ############################################################
   environment.systemPackages = with pkgs; [
     alsa-utils
     anki-bin
-    brave
     cifs-utils
     distrobox
     ffmpeg-full
@@ -279,30 +274,23 @@
     git
     gvfs
     inetutils
-    kdePackages.kdenlive
     lshw
-    nextcloud-client
     obs-cmd
     pciutils
     podman
-    prismlauncher
-    protonup-qt
-    pulseaudio
+    #pulseaudio
     streamcontroller
     tailscale
     temurin-bin-25 #java25
     timeshift
     v4l-utils
     vim
-    vlc
     wget
 
     noctalia
     polkit
     quickshell
     xwayland-satellite
-    xfce.thunar
-    xfce.tumbler
   ];
 
   fonts = {
@@ -320,8 +308,6 @@
   };
 
   environment.variables = {
-    GTK_THEME = "Breeze-Dark";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
   };
 
   ############################################################
@@ -362,6 +348,8 @@
     enable = true;
     dockerCompat = true;
   };
+  services.tumbler.enable = true;
+  security.polkit.enable = true;
 
   ############################################################
   # System State Version

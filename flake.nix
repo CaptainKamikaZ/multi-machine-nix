@@ -15,45 +15,56 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, noctalia-shell, ... }:
   let
     system = "x86_64-linux";
-    lib = nixpkgs.lib;
+
+    # Shared overlays for both system and Home Manager
+    overlays = [
+      # Noctalia overlay
+      (final: prev: {
+        noctalia =
+          noctalia-shell.packages.${prev.stdenv.hostPlatform.system}.default;
+      })
+
+      # Niri from unstable
+      (final: prev: {
+        niri = nixpkgs-unstable.legacyPackages.${system}.niri;
+      })
+    ];
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
 
       specialArgs = {
-        inherit self;
+        inherit self overlays;
       };
 
       modules = [
-
         ./configuration.nix
 
+        # System-level nixpkgs config
         {
-          nixpkgs.config.allowUnfree = true;
-
-          nixpkgs.overlays = [
-            (final: prev: {
-              noctalia =
-                noctalia-shell.packages.${prev.stdenv.hostPlatform.system}.default;
-            })
-
-            (final: prev: {
-              niri = nixpkgs-unstable.legacyPackages.${system}.niri;
-            })
-          ];
+          nixpkgs = {
+            config.allowUnfree = true;
+            overlays = overlays;
+          };
         }
 
+        # Home Manager
         home-manager.nixosModules.home-manager
 
         {
-          home-manager.useGlobalPkgs = true;
+          home-manager.useGlobalPkgs = false;
           home-manager.useUserPackages = true;
-
           home-manager.backupFileExtension = "backup";
 
           home-manager.users.justin = {
             imports = [ ./home.nix ];
-            nixpkgs.config.allowUnfree = true;
+
+            # Home Manager gets the same overlays + unfree
+            nixpkgs = {
+              config.allowUnfree = true;
+              overlays = overlays;
+            };
+
             home.stateVersion = "25.11";
           };
         }

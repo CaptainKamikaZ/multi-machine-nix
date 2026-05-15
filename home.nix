@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let
-  unstablePkgs = pkgs;
-in
+#let unstablePkgs = pkgs; in
 {
 
   imports = [
@@ -18,6 +16,11 @@ in
 
   programs.home-manager.enable = true;
 
+  home.sessionVariables = {
+    GTK_THEME = "Breeze-Dark";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+  };
+
   ############################################################
   # User Packages
   ############################################################
@@ -30,17 +33,24 @@ in
 
     # GUI apps (user-level)
     audacity
+    brave
     discord
     easyeffects
     filezilla
     gimp
     helvum
     kdePackages.kate
+    kdePackages.kdenlive
+    nextcloud-client
     obsidian
     onlyoffice-desktopeditors
+    prismlauncher
+    protonup-qt
     thunderbird
+    vlc
     vscode
     wezterm
+    xfce.thunar
     xfce.thunar-volman
   ];
 
@@ -53,6 +63,13 @@ in
     enable = true;
     style = {
       name = "adwaita-dark";
+    };
+  };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Breeze-Dark";
+      package = pkgs.kdePackages.breeze-gtk;
     };
   };
 
@@ -114,7 +131,7 @@ in
   ############################################################
   xdg.enable = true;
   xdg.configFile."quickshell/noctalia-shell".source =
-    "${unstablePkgs.noctalia}/share/noctalia-shell";
+    "${pkgs.noctalia}/share/noctalia-shell";
 
   xdg.mimeApps.defaultApplications = {
     "application/x-terminal-emulator" = "wezterm.desktop";

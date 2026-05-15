@@ -14,6 +14,7 @@
     ../../modules/shared/packages.nix
     ../../modules/shared/audio.nix
     ../../modules/shared/printing.nix
+    ../../modules/shared/users.nix
     ../../modules/shared/virtualization.nix
     ../../modules/shared/thunar.nix
     ../../modules/shared/niri.nix

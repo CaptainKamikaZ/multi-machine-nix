@@ -65,16 +65,23 @@
     powerManagement.enable = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    prime = {
-      sync.enable = true;
-      amdgpuBusId = "PCI:0:0:0"; # Fake iGPU
-      nvidiaBusId = "PCI:43:0:0"; # Nvidia RTX 3060
-    };
+#    prime = {
+#      sync.enable = true;
+#      amdgpuBusId = "PCI:0:0:0"; # Fake iGPU
+#      nvidiaBusId = "PCI:43:0:0"; # Nvidia RTX 3060
+#    };
   };
+
+  hardware.nvidia-container-toolkit.enable = true;
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
   };
   services.xserver.videoDrivers = ["nvidia" "modesetting"];
 
@@ -242,6 +249,9 @@
   };
   programs.obs-studio = {
     enable = true;
+    package = (pkgs.obs-studio.override {
+      cudaSupport = true;
+    });
     plugins = with pkgs.obs-studio-plugins; [
       obs-move-transition
       obs-transition-table
@@ -260,17 +270,21 @@
   ############################################################
   environment.systemPackages = with pkgs; [
     alsa-utils
+    anki-bin
     brave
     cifs-utils
-    davinci-resolve
+    distrobox
+    ffmpeg-full
     gh
     git
     gvfs
     inetutils
     kdePackages.kdenlive
+    lshw
     nextcloud-client
     obs-cmd
     pciutils
+    podman
     prismlauncher
     protonup-qt
     pulseaudio
@@ -341,8 +355,13 @@
   # Services
   ############################################################
   services.tailscale.enable = true;
+  services.flatpak.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   ############################################################
   # System State Version

@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-top -bn1 | awk '/Cpu/ {print 100 - $8}'

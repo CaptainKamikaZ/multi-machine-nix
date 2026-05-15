@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-iface=enp34s0
-rx=$(cat /sys/class/net/$iface/statistics/rx_bytes)
-tx=$(cat /sys/class/net/$iface/statistics/tx_bytes)
-echo "$rx $tx"

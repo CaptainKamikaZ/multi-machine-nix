@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-ps -eo comm,%cpu --sort=-%cpu | head -n 6

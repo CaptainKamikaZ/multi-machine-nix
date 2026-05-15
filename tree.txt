@@ -1,0 +1,43 @@
+.
+├── flake.nix
+├── hosts/
+│   ├── desktop/
+│   │   ├── default.nix
+│   │   ├── hardware.nix
+│   │   ├── boot.nix
+│   │   ├── networking.nix
+│   │   ├── gpu.nix
+│   │   └── services.nix
+│   └── laptop/
+│       ├── default.nix
+│       ├── hardware.nix
+│       ├── boot.nix
+│       ├── networking.nix
+│       ├── gpu.nix
+│       └── services.nix
+├── modules/
+│   ├── shared/
+│   │   ├── nix.nix
+│   │   ├── fonts.nix
+│   │   ├── packages.nix
+│   │   ├── audio.nix
+│   │   ├── printing.nix
+│   │   ├── virtualization.nix
+│   │   ├── thunar.nix
+│   │   ├── niri.nix
+│   │   ├── noctalia.nix
+│   │   ├── obs.nix
+│   │   ├── overlays.nix
+│   │   └── grub-theme.nix
+└── home/
+    └── justin/
+        ├── default.nix
+        ├── packages.nix
+        ├── gtk.nix
+        ├── qt.nix
+        ├── thunar.nix
+        ├── wezterm.nix
+        ├── firefox.nix
+        ├── git.nix
+        ├── xdg.nix
+        └── services.nix

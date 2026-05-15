@@ -64,7 +64,7 @@
               overlays = overlays;
             };
 
-            home-manager.useGlobalPkgs = false;
+            home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
             home-manager.users.justin = import ./home/justin;

@@ -1,12 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, self, ... }:
 
 {
   ############################################################
   # Imports
   ############################################################
   imports = [
-    /etc/nixos/hardware-configuration.nix
-    <home-manager/nixos>
+    ./hardware-configuration.nix
   ];
 
 
@@ -27,7 +26,7 @@
     device = "nodev";
     configurationLimit = 10;
     useOSProber = true;
-    theme = "/home/justin/.config/grub/hyperfluent-nixos/";
+    theme = pkgs.callPackage (self.outPath + "/grub-theme.nix") {};
   };
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -57,7 +56,7 @@
   };
 
   ###########################################################
-  # NVIDIA (Offload-Only + Sleep Stability)
+  # NVIDIA
   ###########################################################
 
   hardware.nvidia = {
@@ -66,20 +65,34 @@
     powerManagement.enable = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    prime = {
-      offload.enable = true;
-      offload.enableOffloadCmd = true;
-      sync.enable = false;
-      amdgpuBusId = "PCI:0:0:0"; # Fake iGPU
-      nvidiaBusId = "PCI:43:0:0"; # Nvidia RTX 3060
-    };
+#    prime = {
+#      sync.enable = true;
+#      amdgpuBusId = "PCI:0:0:0"; # Fake iGPU
+#      nvidiaBusId = "PCI:43:0:0"; # Nvidia RTX 3060
+#    };
   };
+
+  hardware.nvidia-container-toolkit.enable = true;
 
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
   };
   services.xserver.videoDrivers = ["nvidia" "modesetting"];
 
+  ############################################################
+  # Bluetooth
+  ############################################################
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
 
   ############################################################
   # Sound
@@ -104,7 +117,7 @@
   # Networking
   ############################################################
   networking = {
-    hostName = "justin-nix";
+    hostName = "nixos";
     networkmanager.enable = true;
     useDHCP = false;
 
@@ -153,7 +166,17 @@
   # Desktop Environment (KDE Plasma 6)
   ############################################################
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.xfce.enable = false;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    settings = {
+      General = {
+        DisplayServer = "wayland";
+        WaylandCompositorCommand = "${pkgs.kdePackages.kwin}/bin/kwin_wayland --no-lockscreen --no-global-shortcuts";
+      };
+    };
+  };
   services.desktopManager.plasma6 = {
     enable = true;
   };
@@ -180,6 +203,20 @@
   # Printing
   ############################################################
   services.printing.enable = true;
+  hardware.printers.ensurePrinters = [
+    {
+      name = "hpprinter";
+      deviceUri = "ipp://192.168.0.80/ipp/print";
+      model = "everywhere";
+    }
+  ];
+  services.printing.defaultShared = false;
+  services.printing.listenAddresses = [ "localhost" ];
+  services.printing.allowFrom = [ "localhost" ];
+  systemd.services.ensure-printers = {
+    after = [ "network-online.target" "cups.service" ];
+    wants = [ "network-online.target" ];
+  };
 
   ############################################################
   # Audio (PipeWire)
@@ -200,16 +237,22 @@
   users.users.justin = {
     isNormalUser = true;
     description = "Justin Gabrielson";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "storage" ];
   };
-  home-manager.users.justin = import /home/justin/.config/home-manager/home.nix;
 
   ############################################################
   # System Programs
   ############################################################
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
   programs.obs-studio = {
     enable = true;
+    package = (pkgs.obs-studio.override {
+      cudaSupport = true;
+    });
     plugins = with pkgs.obs-studio-plugins; [
       obs-move-transition
       obs-transition-table
@@ -219,47 +262,35 @@
   programs.niri.enable = true;
 
   ############################################################
-  # Unfree Packages
-  ############################################################
-  nixpkgs.config.allowUnfree = true;
-
-  ############################################################
   # System Packages
   ############################################################
   environment.systemPackages = with pkgs; [
     alsa-utils
-    brave
+    anki-bin
     cifs-utils
-    davinci-resolve
+    distrobox
+    ffmpeg-full
     gh
     git
     gvfs
-    home-manager
     inetutils
-    kdePackages.kdenlive
-    nextcloud-client
+    lshw
     obs-cmd
     pciutils
-    prismlauncher
-    pulseaudio
+    podman
+    #pulseaudio
     streamcontroller
     tailscale
+    temurin-bin-25 #java25
     timeshift
     v4l-utils
     vim
-    vlc
     wget
 
     noctalia
     polkit
     quickshell
     xwayland-satellite
-  ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      noctalia = (builtins.getFlake "github:noctalia-dev/noctalia-shell").packages.${prev.stdenv.hostPlatform.system}.default;
-    })
   ];
 
   fonts = {
@@ -277,8 +308,6 @@
   };
 
   environment.variables = {
-    GTK_THEME = "Breeze-Dark";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
   };
 
   ############################################################
@@ -312,7 +341,15 @@
   # Services
   ############################################################
   services.tailscale.enable = true;
+  services.flatpak.enable = true;
   services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+  services.tumbler.enable = true;
+  security.polkit.enable = true;
 
   ############################################################
   # System State Version

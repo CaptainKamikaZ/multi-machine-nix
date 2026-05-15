@@ -1,5 +1,7 @@
-.
+justin-nix/
 ├── flake.nix
+├── flake.lock
+
 ├── hosts/
 │   ├── desktop/
 │   │   ├── default.nix
@@ -8,6 +10,7 @@
 │   │   ├── networking.nix
 │   │   ├── gpu.nix
 │   │   └── services.nix
+│   │
 │   └── laptop/
 │       ├── default.nix
 │       ├── hardware.nix
@@ -15,20 +18,22 @@
 │       ├── networking.nix
 │       ├── gpu.nix
 │       └── services.nix
+
 ├── modules/
-│   ├── shared/
-│   │   ├── nix.nix
-│   │   ├── fonts.nix
-│   │   ├── packages.nix
-│   │   ├── audio.nix
-│   │   ├── printing.nix
-│   │   ├── virtualization.nix
-│   │   ├── thunar.nix
-│   │   ├── niri.nix
-│   │   ├── noctalia.nix
-│   │   ├── obs.nix
-│   │   ├── overlays.nix
-│   │   └── grub-theme.nix
+│   └── shared/
+│       ├── nix.nix
+│       ├── fonts.nix
+│       ├── packages.nix
+│       ├── audio.nix
+│       ├── printing.nix
+│       ├── virtualization.nix
+│       ├── thunar.nix
+│       ├── niri.nix
+│       ├── noctalia.nix
+│       ├── obs.nix
+│       ├── overlays.nix
+│       └── grub-theme.nix
+
 └── home/
     └── justin/
         ├── default.nix
@@ -40,4 +45,18 @@
         ├── firefox.nix
         ├── git.nix
         ├── xdg.nix
-        └── services.nix
+        ├── services.nix
+        │
+        └── dotfiles/
+            ├── niri/
+            │   └── config.kdl
+            │
+            ├── thunar/
+            │   ├── accels.scm
+            │   └── uca.xml
+            │
+            ├── wezterm/
+            │   └── wezterm.lua
+            │
+            └── fuzzel/
+                └── fuzzel.ini

@@ -19,6 +19,7 @@
     ../../modules/shared/noctalia.nix
     ../../modules/shared/obs.nix
     ../../modules/shared/overlays.nix
+    ../../modules/shared/grub-theme.nix
   ];
 
   system.stateVersion = "25.11";

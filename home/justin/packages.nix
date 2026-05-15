@@ -2,10 +2,13 @@
 
 {
   home.packages = with pkgs; [
+    # CLI tools
     fastfetch
     htop
     lm_sensors
     slurp
+
+    # GUI apps
     audacity
     brave
     discord
@@ -22,6 +25,8 @@
     thunderbird
     vlc
     vscode
+
+    # Terminals & file managers
     wezterm
     xfce.thunar
     xfce.thunar-volman

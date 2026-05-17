@@ -16,8 +16,6 @@
     filezilla
     gimp
     helvum
-    kdePackages.kate
-    kdePackages.kdenlive
     nextcloud-client
     obsidian
     onlyoffice-desktopeditors
@@ -25,6 +23,13 @@
     thunderbird
     vlc
     vscode
+
+    # KDE packages
+    kdePackages.breeze
+    kdePackages.kate
+    kdePackages.kdenlive
+    kdePackages.kirigami
+    kdePackages.qtwayland
 
     # Terminals & file managers
     wezterm

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   users.users.justin = {
@@ -13,5 +13,7 @@
       "input"
     ];
     shell = pkgs.bashInteractive;
+
+    packages = [];
   };
 }

@@ -28,7 +28,9 @@
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit self overlays; };
+        specialArgs = { 
+          inherit self overlays;
+        };
         modules = [
           ./hosts/desktop
           ./modules/shared/grub-theme.nix
@@ -44,14 +46,18 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
 
-            home-manager.users.justin = import ./home/justin;
+            programs.home-manager.enable = true;
+
+            home-manager.users.justin = import ./home/justin/default.nix;
           }
         ];
       };
 
-      laptop = nixpkgs.lib.nixosSystem {
+      nixos-laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit self overlays; };
+        specialArgs = { 
+          inherit self overlays;
+        };
         modules = [
           ./hosts/laptop
           ./modules/shared/grub-theme.nix
@@ -67,7 +73,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.justin = import ./home/justin;
+            programs.home-manager.enable = true;
+
+            home-manager.users.justin = import ./home/justin/default.nix;
           }
         ];
       };

@@ -4,5 +4,5 @@
     style.name = "adwaita-dark";
   };
 
-  home.sessionVariables.QT_QPA_PLATFORMTHEME = "qt5ct";
+  #home.sessionVariables.QT_QPA_PLATFORMTHEME = "qt5ct";
 }

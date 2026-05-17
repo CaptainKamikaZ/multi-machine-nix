@@ -46,8 +46,6 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
 
-            programs.home-manager.enable = true;
-
             home-manager.users.justin = import ./home/justin/default.nix;
           }
         ];
@@ -72,8 +70,6 @@
 
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
-            programs.home-manager.enable = true;
 
             home-manager.users.justin = import ./home/justin/default.nix;
           }

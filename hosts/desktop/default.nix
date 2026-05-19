@@ -19,7 +19,6 @@
     ../../modules/shared/thunar.nix
     ../../modules/shared/niri.nix
     ../../modules/shared/obs.nix
-    ../../modules/shared/overlays.nix
     ../../modules/shared/grub-theme.nix
   ];
 

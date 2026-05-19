@@ -9,7 +9,8 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    wrapper-modules.url = "github:vimjoyer/wrapper-modules";
+    # Working wrapper-modules fork
+    wrapper-modules.url = "github:birdeehub/nix-wrapper-modules";
     wrapper-modules.inputs.nixpkgs.follows = "nixpkgs";
 
     noctalia-shell.url = "github:noctalia-dev/noctalia-shell";
@@ -29,20 +30,21 @@
             inherit system;
             config.allowUnfree = true;
           };
+
+          # Make self available to NixOS modules
+          self = self';
         };
 
         packages = {
-          niri-wrapped =
-            inputs.wrapper-modules.lib.niri.wrap {
-              inherit pkgs;
-              config = ./home/justin/niri/config.kdl;
-            };
+          niri-wrapped = inputs.wrapper-modules.wrappers.niri.wrap {
+            inherit pkgs;
+            config = ./home/justin/niri/config.kdl;
+          };
 
-          noctalia-wrapped =
-            inputs.wrapper-modules.lib.noctalia-shell.wrap {
-              inherit pkgs;
-              config = ./home/justin/noctalia/config.json;
-            };
+          noctalia-wrapped = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
+            inherit pkgs;
+            config = ./home/justin/noctalia/config.json;
+          };
         };
       };
 
@@ -54,22 +56,25 @@
             modules = [
               ./hosts/laptop
               ./modules/shared/grub-theme.nix
-
               inputs.home-manager.nixosModules.home-manager
 
-              {
-                nixpkgs.config.allowUnfree = true;
+              # Inline module with correct self binding
+              ({ config, pkgs, ... }:
+                let
+                  inherit (config._module.args) self;
+                in {
+                  nixpkgs.config.allowUnfree = true;
 
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
 
-                home-manager.users.justin = import ./home/justin/default.nix;
+                  home-manager.users.justin = import ./home/justin/default.nix;
 
-                programs.niri = {
-                  enable = true;
-                  package = self'.packages.niri-wrapped;
-                };
-              }
+                  programs.niri = {
+                    enable = true;
+                    package = self.packages.${pkgs.system}.niri-wrapped;
+                  };
+                })
             ];
           };
 
@@ -79,22 +84,25 @@
             modules = [
               ./hosts/desktop
               ./modules/shared/grub-theme.nix
-
               inputs.home-manager.nixosModules.home-manager
 
-              {
-                nixpkgs.config.allowUnfree = true;
+              # Inline module with correct self binding
+              ({ config, pkgs, ... }:
+                let
+                  inherit (config._module.args) self;
+                in {
+                  nixpkgs.config.allowUnfree = true;
 
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
 
-                home-manager.users.justin = import ./home/justin/default.nix;
+                  home-manager.users.justin = import ./home/justin/default.nix;
 
-                programs.niri = {
-                  enable = true;
-                  package = self'.packages.niri-wrapped;
-                };
-              }
+                  programs.niri = {
+                    enable = true;
+                    package = self.packages.${pkgs.system}.niri-wrapped;
+                  };
+                })
             ];
           };
         };

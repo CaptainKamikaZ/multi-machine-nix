@@ -1,5 +1,0 @@
-{ overlays, ... }:
-
-{
-  nixpkgs.overlays = overlays;
-}

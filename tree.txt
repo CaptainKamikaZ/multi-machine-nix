@@ -1,62 +1,59 @@
 justin-nix/
 ├── flake.nix
 ├── flake.lock
-
+│
 ├── hosts/
-│   ├── desktop/
+│   ├── laptop/
 │   │   ├── default.nix
-│   │   ├── hardware.nix
+│   │   ├── hardware-configuration.nix
 │   │   ├── boot.nix
 │   │   ├── networking.nix
-│   │   ├── gpu.nix
-│   │   └── services.nix
+│   │   └── gpu.nix
 │   │
-│   └── laptop/
+│   └── desktop/
 │       ├── default.nix
-│       ├── hardware.nix
+│       ├── hardware-configuration.nix
 │       ├── boot.nix
 │       ├── networking.nix
-│       ├── gpu.nix
-│       └── services.nix
-
+│       └── gpu.nix
+│
 ├── modules/
-│   └── shared/
-│       ├── nix.nix
-│       ├── fonts.nix
+│   ├── shared/
+│   │   ├── grub-theme.nix
+│   │   ├── fonts.nix
+│   │   ├── audio.nix
+│   │   ├── printing.nix
+│   │   ├── virtualization.nix
+│   │   ├── thunar.nix
+│   │   ├── obs.nix
+│   │   ├── kde-env.nix
+│   │   ├── overlays.nix
+│   │   ├── users.nix
+│   │   ├── services.nix
+│   │   └── packages.nix
+│   │
+│   └── (future modules go here)
+│
+├── home/
+│   └── justin/
+│       ├── default.nix
 │       ├── packages.nix
-│       ├── audio.nix
-│       ├── printing.nix
-│       ├── virtualization.nix
+│       ├── gtk.nix
+│       ├── qt.nix
 │       ├── thunar.nix
-│       ├── niri.nix
-│       ├── noctalia.nix
-│       ├── obs.nix
-│       ├── overlays.nix
-│       └── grub-theme.nix
-
-└── home/
-    └── justin/
-        ├── default.nix
-        ├── packages.nix
-        ├── gtk.nix
-        ├── qt.nix
-        ├── thunar.nix
-        ├── wezterm.nix
-        ├── firefox.nix
-        ├── git.nix
-        ├── xdg.nix
-        ├── services.nix
-        │
-        └── dotfiles/
-            ├── niri/
-            │   └── config.kdl
-            │
-            ├── thunar/
-            │   ├── accels.scm
-            │   └── uca.xml
-            │
-            ├── wezterm/
-            │   └── wezterm.lua
-            │
-            └── fuzzel/
-                └── fuzzel.ini
+│       ├── wezterm.nix
+│       ├── firefox.nix
+│       ├── git.nix
+│       ├── xdg.nix
+│       ├── services.nix
+│       │
+│       ├── niri/
+│       │   └── config.kdl
+│       │
+│       └── noctalia/
+│           └── config.json
+│
+└── dotfiles/
+    ├── wallpapers/
+    ├── themes/
+    └── scripts/

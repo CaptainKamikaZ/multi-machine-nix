@@ -14,8 +14,6 @@
     ./wezterm.nix
     ./firefox.nix
     ./git.nix
-    ./niri.nix
-    ./noctalia.nix
     ../../modules/kde-env.nix
     ./xdg.nix
     ./services.nix

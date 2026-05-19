@@ -28,12 +28,6 @@
     kdePackages.breeze
     kdePackages.kate
     kdePackages.kdenlive
-    kdePackages.kirigami
-    kdePackages.qtwayland
 
-    # Terminals & file managers
-    wezterm
-    xfce.thunar
-    xfce.thunar-volman
   ];
 }

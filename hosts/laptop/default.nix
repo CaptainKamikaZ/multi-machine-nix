@@ -1,4 +1,4 @@
-{ config, pkgs, lib, overlays, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -22,6 +22,12 @@
     ../../modules/shared/grub-theme.nix
 
   ];
+
+  environment.systemPackages = with pkgs; [
+    noctalia
+    kdePackages.kirigami
+  ];
+
 
   system.stateVersion = "25.11";
 }

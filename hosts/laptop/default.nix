@@ -16,7 +16,6 @@
     ../../modules/shared/users.nix
     ../../modules/shared/virtualization.nix
     ../../modules/shared/thunar.nix
-    ../../modules/shared/niri.nix
     ../../modules/shared/obs.nix
     ../../modules/shared/grub-theme.nix
 

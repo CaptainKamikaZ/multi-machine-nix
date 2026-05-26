@@ -1,5 +1,5 @@
 {
-  description = "Justin's dendritic NixOS configuration with Niri + Noctalia";
+  description = "Justin's dendritic NixOS configuration with Niri + Noctalia (Vimjoyer style)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -9,7 +9,6 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Working wrapper-modules fork
     wrapper-modules.url = "github:birdeehub/nix-wrapper-modules";
     wrapper-modules.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -24,57 +23,74 @@
 
       systems = [ "x86_64-linux" ];
 
-      perSystem = { system, pkgs, inputs', self', ... }: {
-        _module.args = {
-          unstable = import inputs.nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-
-          # Make self available to NixOS modules
-          self = self';
-        };
+      perSystem = { system, pkgs, lib, self', ... }: {
 
         packages = {
-          niri-wrapped = inputs.wrapper-modules.wrappers.niri.wrap {
-            inherit pkgs;
-            config = ./home/justin/niri/config.kdl;
+          myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
+            config = {
+              inherit pkgs;
+              v2-settings = true;
+
+              settings = {
+                layout.gaps = 5;
+                binds = {
+                  "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
+                  "Mod+Q".close-window = _: {};
+                };
+              };
+            };
           };
 
-          noctalia-wrapped = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
-            inherit pkgs;
-            config = ./home/justin/noctalia/config.json;
+          myNoctalia = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
+            config = {
+              inherit pkgs;
+              v2-settings = true;
+
+              configFile = ./home/justin/noctalia/config.json;
+            };
           };
         };
       };
 
       flake = {
+        nixosModules = {
+
+          niri = { pkgs, lib, ... }: {
+            programs.niri = {
+              enable = true;
+              package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+            };
+          };
+
+          noctalia = { pkgs, ... }: {
+            environment.systemPackages = [
+              self.packages.${pkgs.stdenv.hostPlatform.system}.myNoctalia
+            ];
+          };
+        };
+
         nixosConfigurations = {
+
           nixos-laptop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
 
             modules = [
               ./hosts/laptop
               ./modules/shared/grub-theme.nix
+
               inputs.home-manager.nixosModules.home-manager
 
-              # Inline module with correct self binding
-              ({ config, pkgs, ... }:
-                let
-                  inherit (config._module.args) self;
-                in {
-                  nixpkgs.config.allowUnfree = true;
+              self.nixosModules.niri
+              self.nixosModules.noctalia
 
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
+              {
+                nixpkgs.config.allowUnfree = true;
 
-                  home-manager.users.justin = import ./home/justin/default.nix;
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
 
-                  programs.niri = {
-                    enable = true;
-                    package = self.packages.${pkgs.system}.niri-wrapped;
-                  };
-                })
+                home-manager.users.justin = import ./home/justin/default.nix;
+              }
             ];
           };
 
@@ -84,25 +100,20 @@
             modules = [
               ./hosts/desktop
               ./modules/shared/grub-theme.nix
+
               inputs.home-manager.nixosModules.home-manager
 
-              # Inline module with correct self binding
-              ({ config, pkgs, ... }:
-                let
-                  inherit (config._module.args) self;
-                in {
-                  nixpkgs.config.allowUnfree = true;
+              self.nixosModules.niri
+              self.nixosModules.noctalia
 
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
+              {
+                nixpkgs.config.allowUnfree = true;
 
-                  home-manager.users.justin = import ./home/justin/default.nix;
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
 
-                  programs.niri = {
-                    enable = true;
-                    package = self.packages.${pkgs.system}.niri-wrapped;
-                  };
-                })
+                home-manager.users.justin = import ./home/justin/default.nix;
+              }
             ];
           };
         };

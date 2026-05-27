@@ -2,13 +2,10 @@
 
 let
   # Choose terminal based on device
-  terminalCmd =
-    if device == "thinkpad" then "foot"
-    else if device == "hp-laptop" then "foot"
-    else "kitty";
+  terminalCmd = "kitty"
 
   # Load your base KDL config
-  rawConfig = builtins.readFile ./config/niri.kdl;
+  rawConfig = builtins.readFile ./niri/config.kdl;
 
   # Replace @TERMINAL@ placeholder
   finalConfig = builtins.replaceStrings

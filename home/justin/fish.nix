@@ -1,4 +1,4 @@
-{ device, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.direnv = {
     enable = true;
@@ -14,7 +14,7 @@
       lla = "lsd -la";
       vim = "nvim";
       vi = "nvim";
-      nrs = "sudo nixos-rebuild switch --flake .#${if device == "thinkpad" then "thinkpad" else "desktop"}";
+      nrs = "sudo nixos-rebuild switch --flake .#${if device == "hp-laptop" then "hp-laptop" else "desktop"}";
     };
 
     interactiveShellInit = ''

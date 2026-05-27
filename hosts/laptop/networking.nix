@@ -1,6 +1,6 @@
 {
   networking = {
-    hostName = "nixos-laptop";
+    hostName = "hp-laptop";
     networkmanager.enable = true;
   };
 }

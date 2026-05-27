@@ -29,7 +29,6 @@
           myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
             config = {
               inherit pkgs;
-              v2-settings = true;
 
               settings = {
                 layout.gaps = 5;
@@ -72,7 +71,7 @@
 
         nixosConfigurations = {
 
-          nixos-laptop = nixpkgs.lib.nixosSystem {
+          hp-laptop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
 
             modules = [

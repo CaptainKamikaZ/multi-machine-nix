@@ -7,16 +7,20 @@
   home.stateVersion = "25.11";
 
   imports = [
-    ./packages.nix
-    ./gtk.nix
-    ./qt.nix
-    ./thunar.nix
-    ./wezterm.nix
+    ./bash.nix
     ./firefox.nix
+    ./fish.nix
     ./git.nix
+    ./gtk.nix
+    ./kitty.nix
+    ./packages.nix
+    ./qt.nix
+    ./services.nix
+    ./thunar.nix
+    ./tmux.nix
+    ./wezterm.nix
     ../../modules/kde-env.nix
     ./xdg.nix
-    ./services.nix
   ];
 
   # ---------------------------------------------------------------------------

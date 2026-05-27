@@ -77,7 +77,6 @@
 
             modules = [
               ./hosts/laptop
-              #./modules/shared/grub-theme.nix
 
               inputs.home-manager.nixosModules.home-manager
 

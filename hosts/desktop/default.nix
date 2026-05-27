@@ -1,6 +1,8 @@
 { config, pkgs, lib, overlays, ... }:
 
 {
+  _module.args.device = "desktop";
+
   imports = [
     ./hardware.nix
     ./boot.nix

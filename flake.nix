@@ -88,7 +88,11 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users.justin = import ./home/justin/default.nix;
+                home-manager.users.justin = { config, pkgs, ... }: {
+                  _module.args.device = "hp-laptop";
+                  imports = [ ./home/justin/default.nix ];
+                };
+               
               }
             ];
           };
@@ -110,8 +114,37 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users.justin = import ./home/justin/default.nix;
+                home-manager.users.justin = { config, pkgs, ... }: {
+                  _module.args.device = "desktop";
+                  imports = [ ./home/justin/default.nix ];
+                };
               }
+            ];
+          };
+
+          thinkpad = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/thinkpad
+
+              inputs.home-manager.nixosModules.home-manager
+
+              self.nixosModules.niri
+              self.nixosModules.noctalia
+
+              {
+                nixpkgs.config.allowUnfree = true;
+
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.users.justin = { config, pkgs, ... }: {
+                  _module.args.device = "thinkpad";
+                  imports = [ ./home/justin/default.nix ];
+                };
+              }
+
             ];
           };
         };

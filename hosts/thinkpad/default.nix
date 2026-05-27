@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  _module.args.device = "hp-laptop";
-
+  _module.args.device = "thinkpad";
 
   imports = [
     ./hardware.nix

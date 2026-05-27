@@ -5,7 +5,7 @@ let
     pname = "hyperfluent-grub-theme";
     version = "1.0";
 
-    src = ../../home/justin/dotfiles/grub/hyperfluent-nixos;
+    src = ../../dotfiles/grub/hyperfluent-nixos;
 
     installPhase = ''
       mkdir -p $out

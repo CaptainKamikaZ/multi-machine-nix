@@ -18,7 +18,7 @@
     ../../modules/shared/virtualization.nix
     ../../modules/shared/thunar.nix
     ../../modules/shared/obs.nix
-    ../../modules/shared/grub-theme.nix
+    #../../modules/shared/grub-theme.nix
   ];
 
   system.stateVersion = "25.11";

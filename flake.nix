@@ -44,9 +44,10 @@
           myNoctalia = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
             config = {
               inherit pkgs;
-              v2-settings = true;
 
-              configFile = ./home/justin/noctalia/config.json;
+              # Explicitly tell the wrapper which package to use
+              package = inputs.noctalia-shell.packages.${system}.default;
+
             };
           };
         };
@@ -76,7 +77,7 @@
 
             modules = [
               ./hosts/laptop
-              ./modules/shared/grub-theme.nix
+              #./modules/shared/grub-theme.nix
 
               inputs.home-manager.nixosModules.home-manager
 
@@ -99,7 +100,6 @@
 
             modules = [
               ./hosts/desktop
-              ./modules/shared/grub-theme.nix
 
               inputs.home-manager.nixosModules.home-manager
 

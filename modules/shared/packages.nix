@@ -23,7 +23,6 @@
     v4l-utils
     vim
     wget
-    noctalia
     polkit
     quickshell
     xwayland-satellite

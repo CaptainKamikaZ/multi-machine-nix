@@ -19,7 +19,6 @@
     ./thunar.nix
     ./tmux.nix
     ./wezterm.nix
-    ../../modules/kde-env.nix
     ./xdg.nix
   ];
 

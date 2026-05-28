@@ -1,5 +1,5 @@
 {
-  description = "Justin's dendritic NixOS configuration with Niri + Noctalia (Vimjoyer style)";
+  description = "Justin's dendritic NixOS configuration with Niri (Vimjoyer style)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -15,6 +15,7 @@
     noctalia-shell.url = "github:noctalia-dev/noctalia-shell";
     noctalia-shell.inputs.nixpkgs.follows = "nixpkgs";
 
+    import-tree.url = "github:vic/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -25,6 +26,9 @@
 
       perSystem = { system, pkgs, lib, self', ... }: {
 
+        #
+        # Wrapped packages (still correct)
+        #
         packages = {
           myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
             config = {
@@ -43,44 +47,26 @@
           myNoctalia = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
             config = {
               inherit pkgs;
-
-              # Explicitly tell the wrapper which package to use
               package = inputs.noctalia-shell.packages.${system}.default;
-
             };
           };
         };
       };
 
       flake = {
-        nixosModules = {
 
-          niri = { pkgs, lib, ... }: {
-            programs.niri = {
-              enable = true;
-              package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
-            };
-          };
-
-          noctalia = { pkgs, ... }: {
-            environment.systemPackages = [
-              self.packages.${pkgs.stdenv.hostPlatform.system}.myNoctalia
-            ];
-          };
-        };
-
+        #
+        # NixOS Configurations (hosts)
+        #
         nixosConfigurations = {
 
           hp-laptop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
 
             modules = [
-              ./hosts/laptop
+              ./modules/hosts/laptop
 
               inputs.home-manager.nixosModules.home-manager
-
-              self.nixosModules.niri
-              self.nixosModules.noctalia
 
               {
                 nixpkgs.config.allowUnfree = true;
@@ -90,9 +76,8 @@
 
                 home-manager.users.justin = { config, pkgs, ... }: {
                   _module.args.device = "hp-laptop";
-                  imports = [ ./home/justin/default.nix ];
+                  imports = [ ./modules/home/justin/default.nix ];
                 };
-               
               }
             ];
           };
@@ -101,12 +86,9 @@
             system = "x86_64-linux";
 
             modules = [
-              ./hosts/desktop
+              ./modules/hosts/desktop
 
               inputs.home-manager.nixosModules.home-manager
-
-              self.nixosModules.niri
-              self.nixosModules.noctalia
 
               {
                 nixpkgs.config.allowUnfree = true;
@@ -116,7 +98,7 @@
 
                 home-manager.users.justin = { config, pkgs, ... }: {
                   _module.args.device = "desktop";
-                  imports = [ ./home/justin/default.nix ];
+                  imports = [ ./modules/home/justin/default.nix ];
                 };
               }
             ];
@@ -126,12 +108,9 @@
             system = "x86_64-linux";
 
             modules = [
-              ./hosts/thinkpad
+              ./modules/hosts/thinkpad
 
               inputs.home-manager.nixosModules.home-manager
-
-              self.nixosModules.niri
-              self.nixosModules.noctalia
 
               {
                 nixpkgs.config.allowUnfree = true;
@@ -141,10 +120,9 @@
 
                 home-manager.users.justin = { config, pkgs, ... }: {
                   _module.args.device = "thinkpad";
-                  imports = [ ./home/justin/default.nix ];
+                  imports = [ ./modules/home/justin/default.nix ];
                 };
               }
-
             ];
           };
         };

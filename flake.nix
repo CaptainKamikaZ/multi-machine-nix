@@ -63,6 +63,10 @@
           hp-laptop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
 
+            specialArgs = {
+              inherit inputs self;
+            };
+
             modules = [
               ./modules/hosts/laptop
 
@@ -74,7 +78,11 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users.justin = { config, pkgs, ... }: {
+                home-manager.extraSpecialArgs = {
+                  inherit inputs self;
+                };
+
+                home-manager.users.justin = { config, pkgs, inputs, self, ... }: {
                   _module.args.device = "hp-laptop";
                   imports = [ ./modules/home/justin/default.nix ];
                 };
@@ -84,6 +92,10 @@
 
           desktop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+
+            specialArgs = {
+              inherit inputs self;
+            };
 
             modules = [
               ./modules/hosts/desktop
@@ -96,7 +108,11 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users.justin = { config, pkgs, ... }: {
+                home-manager.extraSpecialArgs = {
+                  inherit inputs self;
+                };
+
+                home-manager.users.justin = { config, pkgs, inputs, self, ... }: {
                   _module.args.device = "desktop";
                   imports = [ ./modules/home/justin/default.nix ];
                 };
@@ -106,6 +122,10 @@
 
           thinkpad = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+
+            specialArgs = {
+              inherit inputs self;
+            };
 
             modules = [
               ./modules/hosts/thinkpad
@@ -118,7 +138,11 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users.justin = { config, pkgs, ... }: {
+                home-manager.extraSpecialArgs = {
+                  inherit inputs self;
+                };
+
+                home-manager.users.justin = { config, pkgs, inputs, self, ... }: {
                   _module.args.device = "thinkpad";
                   imports = [ ./modules/home/justin/default.nix ];
                 };

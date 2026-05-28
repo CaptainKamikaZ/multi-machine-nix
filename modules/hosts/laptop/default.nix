@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, self, ... }:
 
 {
   _module.args.device = "hp-laptop";
@@ -26,7 +26,7 @@
   ];
 
   # Enable features for this host
-  features.kde-env.enable = true;
+  #features.kde-env.enable = true;
 
   environment.systemPackages = with pkgs; [
     kdePackages.kirigami

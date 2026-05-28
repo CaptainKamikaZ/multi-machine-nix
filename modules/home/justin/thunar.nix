@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, inputs, self, ... }:
 
 {
   # Install Thunar + plugins
@@ -9,8 +9,8 @@
 
   # Declarative Thunar config files
   xdg.configFile."Thunar/accels.scm".source =
-    ../../dotfiles/thunar/accels.scm;
+    "${inputs.self}/dotfiles/thunar/accels.scm";
 
   xdg.configFile."Thunar/uca.xml".source =
-    ../../dotfiles/thunar/uca.xml;
+    "${inputs.self}/dotfiles/thunar/uca.xml";
 }

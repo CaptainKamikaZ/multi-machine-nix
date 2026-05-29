@@ -28,4 +28,5 @@
     xwayland-satellite
   ];
   programs.fish.enable = true;
+  programs.niri.enable = true;
 }

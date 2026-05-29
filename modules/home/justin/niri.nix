@@ -5,7 +5,7 @@ let
   terminalCmd = "kitty";
 
   # Load your base KDL config
-  rawConfig = builtins.readFile ./config.kdl;
+  rawConfig = builtins.readFile ./niri.kdl;
 
   # Replace @TERMINAL@ placeholder
   finalConfig = builtins.replaceStrings

@@ -13,6 +13,7 @@
     ./git.nix
     ./gtk.nix
     ./kitty.nix
+    ./niri.nix
     ./packages.nix
     ./qt.nix
     ./services.nix
@@ -20,8 +21,6 @@
     ./tmux.nix
     ./wezterm.nix
     ./xdg.nix
-
-    ../../features/niri/niri.nix
   ];
 
   # ---------------------------------------------------------------------------

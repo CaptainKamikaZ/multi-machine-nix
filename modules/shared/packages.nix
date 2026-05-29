@@ -12,7 +12,7 @@
     gvfs
     inetutils
     lshw
-    noctalia-shell
+    kdePackages.kirigami
     obs-cmd
     pciutils
     podman

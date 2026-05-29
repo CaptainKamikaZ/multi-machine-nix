@@ -20,16 +20,12 @@
     "${inputs.self}/modules/shared/virtualization.nix"
     "${inputs.self}/modules/shared/thunar.nix"
     "${inputs.self}/modules/shared/grub-theme.nix"
-
-    # Features
-    "${inputs.self}/modules/features/kde-env.nix"
+    "${inputs.self}/modules/shared/kde-env.nix"
   ];
 
   # Enable features for this host
   #features.kde-env.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    kdePackages.kirigami
   ];
 
   system.stateVersion = "25.11";

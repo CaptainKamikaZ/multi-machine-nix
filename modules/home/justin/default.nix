@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
 
@@ -15,6 +15,7 @@
     ./kitty.nix
     ./niri.nix
     ./noctalia.nix
+    inputs.noctalia-shell.homeModules.default
     ./packages.nix
     ./qt.nix
     ./services.nix

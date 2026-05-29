@@ -1,19 +1,14 @@
 { config, pkgs, lib, device, ... }:
 
 let
-  # Choose terminal based on device
   terminalCmd = "kitty";
-
-  # Load your base KDL config
   rawConfig = builtins.readFile ./niri.kdl;
 
-  # Replace @TERMINAL@ placeholder
   finalConfig = builtins.replaceStrings
     [ "@TERMINAL@" ]
     [ terminalCmd ]
     rawConfig;
 
-  # Desktop monitor layout
   desktopOutputs = ''
     output "DP-3" {
       mode "1920x1080@60.000"
@@ -36,7 +31,6 @@ let
     }
   '';
 
-  # ThinkPad monitor layout
   thinkpadOutputs = ''
     output "eDP-1" {
       mode "1920x1080@60"
@@ -45,7 +39,6 @@ let
     }
   '';
 
-  # HP laptop monitor layout
   hpLaptopOutputs = ''
     output "eDP-1" {
       mode "1920x1080@60.01"
@@ -54,7 +47,6 @@ let
     }
   '';
 
-  # Choose output config based on device
   outputConfig =
     if device == "desktop" then desktopOutputs
     else if device == "thinkpad" then thinkpadOutputs
@@ -63,10 +55,8 @@ let
 in
 {
   config = {
-    # Enable XDG integration
     xdg.enable = true;
 
-    # Install final config into ~/.config/niri/config.kdl
     xdg.configFile."niri/config.kdl".text =
       ''
         // Output configuration injected by Home Manager
@@ -74,10 +64,5 @@ in
       ''
       + finalConfig;
 
-    # Enable Niri through Home Manager
-    programs.niri = {
-      enable = true;
-      package = pkgs.niri;
-    };
   };
 }

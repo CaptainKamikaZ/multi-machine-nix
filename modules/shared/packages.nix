@@ -27,4 +27,5 @@
     quickshell
     xwayland-satellite
   ];
+  programs.fish.enable = true;
 }

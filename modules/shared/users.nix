@@ -12,7 +12,7 @@
       "audio"
       "input"
     ];
-    shell = pkgs.bashInteractive;
+    shell = pkgs.fish;
 
     packages = [];
   };

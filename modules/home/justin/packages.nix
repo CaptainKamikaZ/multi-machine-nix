@@ -5,6 +5,7 @@
     # CLI tools
     fastfetch
     htop
+    lsd
     lm_sensors
     slurp
 

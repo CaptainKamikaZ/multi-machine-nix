@@ -14,6 +14,7 @@
     ./gtk.nix
     ./kitty.nix
     ./niri.nix
+    ./noctalia.nix
     ./packages.nix
     ./qt.nix
     ./services.nix

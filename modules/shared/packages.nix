@@ -12,6 +12,7 @@
     gvfs
     inetutils
     lshw
+    noctalia-shell
     obs-cmd
     pciutils
     podman

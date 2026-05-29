@@ -23,10 +23,5 @@
     "${inputs.self}/modules/shared/kde-env.nix"
   ];
 
-  # Enable features for this host
-  #features.kde-env.enable = true;
-
-  ];
-
   system.stateVersion = "25.11";
 }

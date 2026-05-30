@@ -3,41 +3,8 @@
 {
   programs.noctalia-shell = {
     enable = true;
-
-    settings = {
-      theme = {
-        accent = "#7fc8ff";
-        background = "#0f1632";
-        foreground = "#ffffff";
-        radius = 12;
-        blur = 20;
-        opacity = 0.92;
-      };
-
-      launcher = {
-        enabled = true;
-        showSearch = true;
-        showPinned = true;
-        pinned = [
-          { name = "Firefox"; command = "firefox"; icon = "firefox"; }
-          { name = "VS Code"; command = "code"; icon = "code"; }
-          { name = "WezTerm"; command = "wezterm"; icon = "terminal"; }
-        ];
-      };
-
-      lockScreen = {
-        enabled = true;
-        blur = 40;
-        clock = true;
-        date = true;
-      };
-
-      notifications = {
-        enabled = true;
-        position = "top-right";
-        maxVisible = 4;
-        timeout = 5000;
-      };
-    };
   };
+
+  xdg.configFile."noctalia/settings.json".source =
+    ./noctalia.json;
 }

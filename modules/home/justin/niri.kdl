@@ -333,8 +333,12 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+D hotkey-overlay-title="Run an Application: vs-code" { spawn "vs-code"; }
     Mod+B hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
-    Ctrl+Alt+L hotkey-overlay-title="Lock the Screen" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
-    Mod+Space hotkey-overlay-title="Open Launcher" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
+    Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { 
+      spawn-sh "noctalia-shell msg lockScreen lock";
+    }
+    Mod+Space hotkey-overlay-title="Toggle App Launcher: Noctalia" { 
+      spawn-sh "noctalia-shell msg launcher toggle";
+    }
     //Mod+Shift+S hotkey-overlay-title="Screenshot Window" { screenshot-window write-to-disk=false; }
 
 

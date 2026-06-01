@@ -1,5 +1,5 @@
 {
-  description = "Justin's dendritic NixOS configuration with Niri (Vimjoyer style)";
+  description = "Justin's dendritic NixOS configuration with Niri";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -12,8 +12,10 @@
     wrapper-modules.url = "github:birdeehub/nix-wrapper-modules";
     wrapper-modules.inputs.nixpkgs.follows = "nixpkgs";
 
-    noctalia-shell.url = "github:noctalia-dev/noctalia-shell";
-    noctalia-shell.inputs.nixpkgs.follows = "nixpkgs";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     import-tree.url = "github:vic/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -23,29 +25,6 @@
     flake-parts.lib.mkFlake { inherit self inputs; } {
 
       systems = [ "x86_64-linux" ];
-
-      perSystem = { system, pkgs, lib, self', ... }: {
-
-        #
-        # Wrapped packages (still correct)
-        #
-        packages = {
-          myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
-            config = {
-              inherit pkgs;
-
-              settings = {
-                layout.gaps = 5;
-                binds = {
-                  "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
-                  "Mod+Q".close-window = _: {};
-                };
-              };
-            };
-          };
-#removed noctalia wrapper
-        };
-      };
 
       flake = {
 

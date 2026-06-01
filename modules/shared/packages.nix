@@ -12,7 +12,6 @@
     gvfs
     inetutils
     lshw
-    kdePackages.kirigami
     obs-cmd
     pciutils
     podman
@@ -20,6 +19,7 @@
     streamcontroller
     tailscale
     temurin-bin-25
+    tree
     timeshift
     v4l-utils
     vim

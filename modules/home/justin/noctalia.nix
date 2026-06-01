@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.noctalia-shell.homeModules.default
+    inputs.noctalia.homeModules.default
   ];
 
   programs.noctalia-shell = {

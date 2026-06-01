@@ -1,6 +1,10 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
+  imports = [
+    inputs.noctalia-shell.homeModules.default
+  ];
+
   programs.noctalia-shell = {
     enable = true;
   };

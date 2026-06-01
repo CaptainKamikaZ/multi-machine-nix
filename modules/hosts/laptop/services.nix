@@ -1,6 +1,24 @@
 { config, pkgs, ... }:
 
 {
+  services.xserver.enable = true;
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
+
+  services.desktopManager.plasma6.enable = true;
+  systemd.defaultUnit = "graphical.target";
+  services.displayManager.sessionPackages = [
+    pkgs.niri
+  ];
+
+  # Laptop-specific
+  powerManagement.enable = true;
+  services.power-profiles-daemon.enable = true;
+
+  # Other services
   services.tailscale.enable = true;
   services.flatpak.enable = true;
   services.gvfs.enable = true;
@@ -8,12 +26,4 @@
   services.tumbler.enable = true;
   services.blueman.enable = true;
   services.printing.enable = true;
-
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Laptop-specific
-  powerManagement.enable = true;
-  services.power-profiles-daemon.enable = true;
 }

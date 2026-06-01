@@ -54,15 +54,13 @@ let
     else "";
 in
 {
-  config = {
-    xdg.enable = true;
+  xdg.enable = true;
 
-    xdg.configFile."niri/config.kdl".text =
-      ''
-        // Output configuration injected by Home Manager
-        ${outputConfig}
-      ''
-      + finalConfig;
+  xdg.configFile."niri/config.kdl".text =
+    ''
+      // Output configuration injected by Home Manager
+      ${outputConfig}
+    ''
+    + finalConfig;
 
-  };
 }

@@ -43,13 +43,7 @@
               };
             };
           };
-
-          myNoctalia = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
-            config = {
-              inherit pkgs;
-              package = inputs.noctalia-shell.packages.${system}.default;
-            };
-          };
+#removed noctalia wrapper
         };
       };
 
@@ -77,6 +71,8 @@
 
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "backup";
+                home-manager.overwriteBackup = true;
 
                 home-manager.extraSpecialArgs = {
                   inherit inputs self;

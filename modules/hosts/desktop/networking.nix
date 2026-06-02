@@ -1,6 +1,6 @@
 {
   networking = {
-    hostName = "nixos-desktop";
+    hostName = "desktop";
     networkmanager.enable = true;
     useDHCP = false;
 

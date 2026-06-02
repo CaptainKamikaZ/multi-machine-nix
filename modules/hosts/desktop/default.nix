@@ -23,24 +23,11 @@
     "${inputs.self}/modules/shared/grub-theme.nix"
 
     # Features
-    "${inputs.self}/modules/features/kde-env.nix"
     "${inputs.self}/modules/features/obs.nix"
-    # Add these when ready:
-    # "${inputs.self}/modules/features/niri"
-    # "${inputs.self}/modules/features/noctalia"
   ];
 
   # Enable features for this host
-  features.kde-env.enable = true;
   features.obs.enable = true;
-
-  # Enable these when ready:
-  # features.niri.enable = true;
-  # features.noctalia.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    kdePackages.kirigami
-  ];
 
   system.stateVersion = "25.11";
 }

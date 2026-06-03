@@ -20,7 +20,6 @@
     "${inputs.self}/modules/shared/virtualization.nix"
     "${inputs.self}/modules/shared/thunar.nix"
     "${inputs.self}/modules/shared/grub-theme.nix"
-    "${inputs.self}/modules/shared/kde-env.nix"
   ];
 
   system.stateVersion = "25.11";

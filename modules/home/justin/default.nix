@@ -16,7 +16,7 @@
     ./gtk.nix
     ./kitty.nix
     ./niri.nix
-    ./nixvim.nix
+    #./nixvim.nix
     ./noctalia.nix
     ./packages.nix
     ./qt.nix

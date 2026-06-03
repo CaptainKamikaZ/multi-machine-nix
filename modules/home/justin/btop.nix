@@ -7,7 +7,7 @@
     };
   };
 
-  xdg.configFile."btop/themes/catppuccin_mocha.theme".source =
-    ./config/btop/catppuccin_mocha.theme;
+#  xdg.configFile."btop/themes/catppuccin_mocha.theme".source =
+#    ./config/btop/catppuccin_mocha.theme;
 }
 

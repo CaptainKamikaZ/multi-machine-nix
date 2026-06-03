@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ cava ];
+
   xdg.configFile."cava/config".text = ''
     [general]
     bars = 0

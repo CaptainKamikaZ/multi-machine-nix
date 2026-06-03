@@ -1,75 +1,113 @@
-# Justin's NixOS Configuration
+# CaptainKamikaZ's NixOS Configuration
 
-This repository contains my fully modular, multi‑machine NixOS configuration.
-It supports both my desktop and laptop, with shared modules and a unified Home
-Manager profile.
+A modern, scalable NixOS configuration designed for multiple machines using a clean
+`shared/` + `features/` + `hosts/` architecture. Built with flakes, flake‑parts,
+Home‑Manager, and a modular design that keeps each system reproducible and easy to maintain.
 
-## 🧩 Structure
+This repo powers all of my NixOS machines, including desktops and laptops, with
+optional features like Niri, Noctalia, gaming, virtualization, and more.
 
-justin-nix/
+---
+
+## ✨ Goals
+
+- Consistent baseline configuration across all machines
+- Optional feature modules that can be toggled per host
+- Clean separation between system‑level and user‑level configuration
+- Declarative desktop environments (Niri + Noctalia)
+- Easy onboarding for new machines
+- Reproducible builds using flakes
+
+---
+
+## 📁 Repository Structure
+.
 ├── flake.nix
-├── hosts/
-│   ├── desktop/
-│   └── laptop/
+├── flake.lock
+├── hosts/              # Per-machine configuration
+│   ├── laptop/
+│   └── desktop/
 ├── modules/
-│   └── shared/
-└── home/
-└── justin/
+│   ├── shared/         # Always-on system modules
+│   └── features/       # Optional feature modules
+└── home/               # Home-Manager modules
 
 
 ### `hosts/`
-Machine‑specific configuration:
+Machine-specific configuration. Each host enables the features it needs:
 
-- `hardware.nix` — disks, filesystems, initrd modules
-- `boot.nix` — bootloader settings
-- `networking.nix` — hostname, DHCP/static IP
-- `gpu.nix` — NVIDIA or integrated graphics
-- `services.nix` — host‑specific services
-- `default.nix` — imports everything for that machine
+```nix
+{
+  features = {
+    niri.enable = true;
+    noctalia.enable = true;
+    gaming.enable = false;
+  };
+}
 
-### `modules/shared/`
-Reusable system modules shared across all machines:
+modules/shared/
 
-- Nix settings
-- Fonts
-- Packages
-- Audio (PipeWire)
-- Printing
-- Virtualization (Podman)
-- Thunar/GVFS
-- Niri
-- Noctalia
-- OBS Studio
-- Overlays
-- GRUB theme
+Modules that apply to every machine:
 
-### `home/justin/`
-My Home Manager configuration:
+    base system defaults
 
-- Modular HM files (`gtk.nix`, `qt.nix`, `wezterm.nix`, etc.)
-- Dotfiles stored under `dotfiles/`
-- Shared across all machines
+    networking
 
-## 🖥️ Desktop
-- NVIDIA GPU
-- Static IP networking
-- Multiple mounted storage drives
+    fonts & theming
 
-## 💻 Laptop
-- Integrated graphics
-- DHCP networking
-- Power‑optimized defaults
+    core packages
 
-## 🎨 GRUB Theme
-My custom Hyperfluent GRUB theme is built as a derivation and applied to all machines.
+    user account
 
-## 🚀 Usage
+    audio (PipeWire)
 
-Build for desktop:
-sudo nixos-rebuild switch --flake .#desktop
+    system services
 
-Build for laptop:
-sudo nixos-rebuild switch --flake .#laptop
+modules/features/
 
-## 📄 License
-MIT
+Optional modules that can be toggled per host:
+
+    Niri compositor
+
+    Noctalia shell
+
+    Gaming stack (Steam, MangoHUD, gamescope)
+
+    Virtualization (libvirt, qemu)
+
+    Printing
+
+    NVIDIA drivers
+
+home/
+
+Home‑Manager configuration for user‑level settings:
+
+    shell
+
+    terminal
+
+    editor
+
+    desktop config
+
+    dotfiles
+
+### 🖥 Adding a New Machine
+1. Create a new directory under hosts/:
+
+hosts/my-machine/default.nix
+
+2. Enable the features you want:
+
+{
+  features = {
+    niri.enable = true;
+    noctalia.enable = true;
+    gaming.enable = false;
+  };
+}
+
+3. Rebuild
+
+sudo nixos-rebuild switch --flake .#my-machine

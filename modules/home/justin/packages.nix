@@ -7,20 +7,18 @@
     htop
     lsd
     lm_sensors
-    slurp
 
     # GUI apps
+    anki-bin
     audacity
     brave
     discord
     easyeffects
     filezilla
     gimp
-    helvum
     nextcloud-client
     obsidian
     onlyoffice-desktopeditors
-    prismlauncher
     thunderbird
     vlc
     vscode

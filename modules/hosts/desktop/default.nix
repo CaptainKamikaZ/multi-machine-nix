@@ -23,11 +23,19 @@
     "${inputs.self}/modules/shared/grub-theme.nix"
 
     # Features
-    "${inputs.self}/modules/features/obs.nix"
+    "${inputs.self}/modules/features/default.nix"
   ];
 
   # Enable features for this host
+  features.audiotools.enable = true;
+  features.gaming.enable = true;
   features.obs.enable = true;
+  features.virtualization.enable = true;
+
+  # Host specific packages
+  environment.systemPackages = with pkgs; [
+    streamcontroller
+  ];
 
   system.stateVersion = "25.11";
 }

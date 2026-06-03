@@ -8,12 +8,15 @@
 
   imports = [
     ./bash.nix
+    ./btop.nix
+    ./cava.nix
     ./firefox.nix
     ./fish.nix
     ./git.nix
     ./gtk.nix
     ./kitty.nix
     ./niri.nix
+    ./nixvim.nix
     ./noctalia.nix
     ./packages.nix
     ./qt.nix
@@ -22,6 +25,7 @@
     ./tmux.nix
     ./wezterm.nix
     ./xdg.nix
+    ./zathura.nix
   ];
 
   # ---------------------------------------------------------------------------

@@ -19,6 +19,7 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
   services.tumbler.enable = true;
+  services.avahi.enable = true;
   services.blueman.enable = true;
   services.printing.enable = true;
 }

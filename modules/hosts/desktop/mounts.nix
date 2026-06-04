@@ -1,11 +1,15 @@
 {
   fileSystems."/mnt/share/media" = {
     device = "//192.168.0.30/media";
-    fsType = "autofs";
-    options = let
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in [
-      "${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=3000"
+    fsType = "cifs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "credentials=/etc/nixos/smb-secrets"
+      "uid=1000"
+      "gid=3000"
+      "file_mode=0664"
+      "dir_mode=0775"
     ];
   };
 

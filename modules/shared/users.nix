@@ -11,6 +11,8 @@
       "video"
       "audio"
       "input"
+      "storage"
+      "plugdev"
     ];
     shell = pkgs.fish;
 

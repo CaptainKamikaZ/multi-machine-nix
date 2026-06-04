@@ -45,4 +45,19 @@
       force = true;
     };
   };
+
+  xdg.configFile."gtk-3.0/bookmarks".text = ''
+  file:///home/justin/Nextcloud/Documents Documents
+  file:///home/justin/Nextcloud/Photos Photos
+  file:///home/justin/Videos Videos
+  file:///home/justin/Downloads Downloads
+
+  # Remote shares
+  file:///mnt/share/data/foundry Foundry
+  file:///mnt/share/media Media
+
+  # Recent
+  recent:/// Recent Files
+  recent:///?locations Recent Locations
+  '';
 }

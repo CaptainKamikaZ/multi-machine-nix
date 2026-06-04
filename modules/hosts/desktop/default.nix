@@ -16,7 +16,6 @@
     "${inputs.self}/modules/shared/fonts.nix"
     "${inputs.self}/modules/shared/packages.nix"
     "${inputs.self}/modules/shared/audio.nix"
-    "${inputs.self}/modules/shared/flatpak.nix"
     "${inputs.self}/modules/shared/printing.nix"
     "${inputs.self}/modules/shared/users.nix"
     "${inputs.self}/modules/shared/virtualization.nix"

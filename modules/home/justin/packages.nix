@@ -27,7 +27,4 @@
     kdePackages.kdenlive
 
   ];
-  home.flatpak.packages = [
-    "com.onlyoffice.desktopeditors"
-  ];
 }

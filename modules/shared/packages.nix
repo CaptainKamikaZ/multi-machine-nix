@@ -10,6 +10,7 @@
     gvfs
     inetutils
     lshw
+    onlyoffice-desktopeditors
     pciutils
     tailscale
     tree

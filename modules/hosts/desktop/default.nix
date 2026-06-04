@@ -19,7 +19,6 @@
     "${inputs.self}/modules/shared/audio.nix"
     "${inputs.self}/modules/shared/printing.nix"
     "${inputs.self}/modules/shared/users.nix"
-    "${inputs.self}/modules/shared/virtualization.nix"
     "${inputs.self}/modules/shared/thunar.nix"
     "${inputs.self}/modules/shared/grub-theme.nix"
 

@@ -56,8 +56,5 @@
   file:///mnt/share/data/foundry Foundry
   file:///mnt/share/media Media
 
-  # Recent
-  recent:/// Recent Files
-  recent:///?locations Recent Locations
   '';
 }

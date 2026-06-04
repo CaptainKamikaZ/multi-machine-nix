@@ -11,6 +11,7 @@
     ./services.nix
 
     # Shared defaults (flake‑relative)
+    "${inputs.self}/modules/shared/system.nix"
     "${inputs.self}/modules/shared/nix.nix"
     "${inputs.self}/modules/shared/fonts.nix"
     "${inputs.self}/modules/shared/packages.nix"

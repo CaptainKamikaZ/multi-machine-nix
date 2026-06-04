@@ -9,8 +9,8 @@
     git
     gvfs
     inetutils
+    libreoffice
     lshw
-    onlyoffice-desktopeditors
     pciutils
     tailscale
     tree

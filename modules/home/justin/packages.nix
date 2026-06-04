@@ -20,7 +20,6 @@
     obsidian
     thunderbird
     vlc
-    vscode
 
     # KDE packages
     kdePackages.breeze

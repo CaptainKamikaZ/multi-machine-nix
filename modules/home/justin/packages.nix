@@ -18,7 +18,6 @@
     gimp
     nextcloud-client
     obsidian
-    onlyoffice-desktopeditors
     thunderbird
     vlc
     vscode
@@ -28,5 +27,8 @@
     kdePackages.kate
     kdePackages.kdenlive
 
+  ];
+  home.flatpak.packages = [
+    "com.onlyoffice.desktopeditors"
   ];
 }

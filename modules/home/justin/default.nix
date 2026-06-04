@@ -23,7 +23,7 @@
     ./services.nix
     ./thunar.nix
     ./tmux.nix
-    ./wezterm.nix
+    #./wezterm.nix
     ./xdg.nix
     ./zathura.nix
   ];

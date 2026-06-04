@@ -3,9 +3,9 @@
 
 <action>
     <icon>utilities-terminal</icon>
-    <name>Open WezTerm Here</name>
-    <command>wezterm start --cwd %f</command>
-    <description>Open WezTerm in this directory</description>
+    <name>Open Kitty Here</name>
+    <command>kitty start --cwd %f</command>
+    <description>Open Kitty in this directory</description>
     <patterns>*</patterns>
     <directories/>
     <startup-notify/>

@@ -331,8 +331,10 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+D hotkey-overlay-title="Run an Application: vs-code" { spawn "vs-code"; }
+    Mod+D hotkey-overlay-title="Browse Files: thunar" { spawn "thunar"; }
+    Mod+Shift+C hotkey-overlay-title="Run an Application: vs-code" { spawn "code"; }
     Mod+B hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
+    Ctrl+Shift+Escape hotkey-overlay-title="System Resources: btop" { spawn "kitty" "-e" "btop"; }
     Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { 
       spawn-sh "noctalia-shell msg lockScreen lock";
     }

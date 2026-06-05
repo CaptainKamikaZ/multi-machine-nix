@@ -266,7 +266,7 @@
     "weatherEnabled": true,
     "weatherShowEffects": true,
     "weatherTaliaMascotAlways": false,
-    "useFahrenheit": false,
+    "useFahrenheit": true,
     "use12hourFormat": false,
     "showWeekNumberInCalendar": false,
     "showCalendarEvents": true,
@@ -275,7 +275,7 @@
     "firstDayOfWeek": -1,
     "hideWeatherTimezone": false,
     "hideWeatherCityName": false,
-    "autoLocate": false
+    "autoLocate": true
   },
   "calendar": {
     "cards": [

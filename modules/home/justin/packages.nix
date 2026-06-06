@@ -20,6 +20,7 @@
     obsidian
     thunderbird
     vlc
+    xwayland-satellite
 
     # KDE packages
     kdePackages.breeze

@@ -1,18 +1,41 @@
 { config, pkgs, ... }:
 
 {
+  ##############################
+  # Display Manager: greetd
+  ##############################
+  services.displayManager.sddm.enable = false;
+
+  services.greetd = {
+    enable = true;
+
+    settings = {
+      default_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "justin";
+      };
+    };
+  };
+
+  ##############################
+  # Desktop Environments
+  ##############################
   services.xserver.enable = true;
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
+  # Plasma 6 stays available as an alternate session
   services.desktopManager.plasma6.enable = true;
-  systemd.defaultUnit = "graphical.target";
+
+  # Register Niri session
   services.displayManager.sessionPackages = [
     pkgs.niri
   ];
 
+  # Boot to graphical target
+  systemd.defaultUnit = "graphical.target";
+
+  ##############################
+  # System Services
+  ##############################
   services.tailscale.enable = true;
   services.flatpak.enable = true;
 

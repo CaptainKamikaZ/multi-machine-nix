@@ -29,6 +29,7 @@
   # Enable features for this host
   features.audiotools.enable = true;
   features.gaming.enable = true;
+  features.greetd.enable = true;
   features.obs.enable = true;
   features.virtualization.enable = true;
 

@@ -1,23 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ##############################
-  # Display Manager: greetd
-  ##############################
-  services.displayManager.sddm.enable = false;
-
-  services.greetd = {
-    enable = true;
-
-    settings = {
-      default_session = {
-        command = "${pkgs.niri}/bin/niri-session";
-        user = "justin";
-      };
-    };
-  };
-  security.pam.services.greetd.enableGnomeKeyring = true;
-  services.gnome.gnome-keyring.enable = true;
 
   ##############################
   # Desktop Environments

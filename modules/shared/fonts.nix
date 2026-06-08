@@ -12,6 +12,10 @@
       ubuntu-classic
       hack-font
       cascadia-code
+
+      cantarell-fonts
+      gnome-themes-extra
+      adwaita-icon-theme
     ];
   };
 }

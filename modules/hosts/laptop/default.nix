@@ -20,7 +20,12 @@
     "${inputs.self}/modules/shared/users.nix"
     "${inputs.self}/modules/shared/thunar.nix"
     "${inputs.self}/modules/shared/grub-theme.nix"
+
+    # Features
+    "${inputs.self}/modules/features/default.nix"
   ];
+
+  features.sddm.enable = true;
 
   system.stateVersion = "25.11";
 }

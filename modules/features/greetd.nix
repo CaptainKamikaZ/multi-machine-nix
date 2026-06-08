@@ -4,12 +4,7 @@ let
   cfg = config.features.greetd;
 in
 {
-  options.features.greetd = {
-    enable = lib.mkEnableOption "Enable greetd with ReGreet";
-  };
-
   config = lib.mkIf cfg.enable {
-    # Auto-disable SDDM when greetd is enabled
     services.displayManager.sddm.enable = lib.mkForce false;
 
     services.greetd = {
@@ -18,11 +13,9 @@ in
       settings = {
         default_session = {
           command = "${pkgs.regreet}/bin/regreet";
-          user = null;
+          user = "justin";
         };
       };
-
-      vt = 1;
     };
 
     programs.regreet = {
@@ -36,8 +29,11 @@ in
       cursorTheme.name = "Adwaita";
     };
 
-    environment.systemPackages = [
-      pkgs.regreet
+    environment.systemPackages = with pkgs; [
+      regreet
+      adwaita-icon-theme
+      gnome-themes-extra
+      cantarell-fonts
     ];
   };
 }

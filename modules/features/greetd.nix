@@ -5,7 +5,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    services.displayManager.sddm.enable = lib.mkForce false;
 
     services.greetd = {
       enable = true;

@@ -12,13 +12,14 @@
     anki-bin
     audacity
     brave
-    discord
+    #discord
     easyeffects
     filezilla
     gimp
     nextcloud-client
     obsidian
     thunderbird
+    vesktop
     vlc
     xwayland-satellite
 

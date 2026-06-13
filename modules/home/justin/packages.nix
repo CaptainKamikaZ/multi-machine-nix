@@ -12,7 +12,6 @@
     anki-bin
     audacity
     brave
-    #discord
     easyeffects
     filezilla
     gimp

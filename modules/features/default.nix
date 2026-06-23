@@ -6,6 +6,7 @@
     ./audiotools.nix
     ./gaming.nix
     ./sddm.nix
+    ./study.nix
     ./virtualization.nix
   ];
 
@@ -14,6 +15,7 @@
     audiotools.enable = lib.mkEnableOption "Audio tools";
     gaming.enable = lib.mkEnableOption "Gaming applications";
     sddm.enable = lib.mkEnableOption "SDDM display manager";
+    study.enable = lib.mkEnableOption "Study tools";
     virtualization.enable = lib.mkEnableOption "Virtualization tools";
   };
 }

@@ -9,7 +9,6 @@
     lm_sensors
 
     # GUI apps
-    anki-bin
     audacity
     brave
     easyeffects

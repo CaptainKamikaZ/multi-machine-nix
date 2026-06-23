@@ -31,6 +31,7 @@
   features.gaming.enable = true;
   features.sddm.enable = true;
   features.obs.enable = true;
+  features.study.enable = true;
   features.virtualization.enable = true;
 
   # Host specific packages

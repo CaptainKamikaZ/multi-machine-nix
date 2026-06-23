@@ -4,18 +4,9 @@ let
   cfg = config.features.study;
 in
 {
-  options.features.study = {
-    enable = lib.mkEnableOption "Study tools (Anki Wayland, etc.)";
-  };
-
   config = lib.mkIf cfg.enable {
 
-    # Install Anki (and future study tools)
-    home-manager.users.justin.home.packages = [
-      pkgs.anki-bin
-    ];
-
-    # Wrap Anki so terminal launches always use Wayland
+    # Only install the wrapper, not anki-bin itself
     home-manager.users.justin.home.packages = [
       (pkgs.writeShellScriptBin "anki" ''
         export ANKI_WAYLAND=1
@@ -23,7 +14,7 @@ in
       '')
     ];
 
-    # Override .desktop entry so launchers (Noctalia, Niri, etc.) use Wayland
+    # Override .desktop entry so launchers use Wayland
     home-manager.users.justin.xdg.desktopEntries.anki = {
       name = "Anki";
       exec = "env ANKI_WAYLAND=1 anki %f";

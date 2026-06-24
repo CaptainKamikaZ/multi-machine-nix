@@ -14,6 +14,7 @@
     shellAliases = {
       ll = "ls -l";
       ".." = "cd ..";
+      ssh = "kitty +kitten ssh";
     };
 
     # 3. History Settings

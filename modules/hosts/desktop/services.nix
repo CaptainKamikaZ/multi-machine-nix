@@ -19,6 +19,16 @@
   systemd.defaultUnit = "graphical.target";
 
   ##############################
+  # Hardware & Drivers
+  ##############################
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  hardware.enableAllFirmware = true;
+
+  ##############################
   # System Services
   ##############################
   services.tailscale.enable = true;

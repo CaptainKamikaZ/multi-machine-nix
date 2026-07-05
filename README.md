@@ -29,10 +29,19 @@ optional features like Niri, Noctalia, gaming, virtualization, and more.
 ├── hosts/
 
 │   ├── laptop/
+
 │   └── desktop/
+
 ├── modules/
-│   ├── shared/         # Always-on system modules
-│   └── features/       # Optional feature modules
+
+│   ├── shared/         # Always-on system
+ 
+modules
+
+│   └── features/       # Optional feature
+
+modules
+
 └── home/               # Home-Manager modules
 
 

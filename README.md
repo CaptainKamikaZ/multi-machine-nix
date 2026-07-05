@@ -27,7 +27,7 @@ optional features like Niri, Noctalia, gaming, virtualization, and more.
 ├── flake.lock
 
 ├── hosts/
-│ 
+
 │   ├── laptop/
 │   └── desktop/
 ├── modules/

@@ -21,13 +21,13 @@ optional features like Niri, Noctalia, gaming, virtualization, and more.
 ---
 
 ## 📁 Repository Structure
-.
+
 ├── flake.nix
 
 ├── flake.lock
 
 ├── hosts/
-├
+│ 
 │   ├── laptop/
 │   └── desktop/
 ├── modules/

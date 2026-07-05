@@ -25,7 +25,9 @@ optional features like Niri, Noctalia, gaming, virtualization, and more.
 ├── flake.nix
 
 ├── flake.lock
-├── hosts/              # Per-machine configuration
+
+├── hosts/
+├
 │   ├── laptop/
 │   └── desktop/
 ├── modules/

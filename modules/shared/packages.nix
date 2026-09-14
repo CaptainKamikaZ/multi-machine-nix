@@ -11,6 +11,7 @@
     inetutils
     libreoffice
     lshw
+    neovim
     pciutils
     tailscale
     tree

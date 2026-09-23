@@ -21,16 +21,24 @@ optional features like Niri, Noctalia, gaming, virtualization, and more.
 ---
 
 ## 📁 Repository Structure
-.
-├── flake.nix
-├── flake.lock
-├── hosts/              # Per-machine configuration
+
+flake.nix
+
+flake.lock
+
+modules
+
+├── hosts/
+
 │   ├── laptop/
+
 │   └── desktop/
-├── modules/
-│   ├── shared/         # Always-on system modules
-│   └── features/       # Optional feature modules
-└── home/               # Home-Manager modules
+
+├── shared/         # Always-on system
+ 
+├── features/       # Optional feature
+
+└── home/           # Home-Manager modules
 
 
 ### `hosts/`

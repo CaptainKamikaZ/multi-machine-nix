@@ -11,7 +11,6 @@
     # GUI apps
     audacity
     brave
-    easyeffects
     filezilla
     gimp
     nextcloud-client

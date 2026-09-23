@@ -262,7 +262,7 @@
     "settingsPanelSideBarCardStyle": false
   },
   "location": {
-    "name": "",
+    "name": "Fargo",
     "weatherEnabled": true,
     "weatherShowEffects": true,
     "weatherTaliaMascotAlways": false,
@@ -664,7 +664,7 @@
     "notifyUpdates": true
   },
   "idle": {
-    "enabled": false,
+    "enabled": true,
     "screenOffTimeout": 600,
     "lockTimeout": 660,
     "suspendTimeout": 1800,

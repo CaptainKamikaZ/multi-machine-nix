@@ -26,6 +26,7 @@
   ];
 
   features.sddm.enable = true;
+  features.study.enable = true;
 
   system.stateVersion = "25.11";
 }

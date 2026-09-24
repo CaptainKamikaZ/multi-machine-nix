@@ -233,9 +233,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
-spawn-at-startup "/run/current-system/sw/bin/qs"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 spawn-at-startup "~/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
@@ -336,10 +334,10 @@ binds {
     Mod+B hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
     Ctrl+Shift+Escape hotkey-overlay-title="System Resources: btop" { spawn "kitty" "-e" "btop"; }
     Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { 
-      spawn-sh "noctalia-shell msg lockScreen lock";
+      spawn-sh "noctalia msg session lock";
     }
     Mod+Space hotkey-overlay-title="Toggle App Launcher: Noctalia" { 
-      spawn-sh "noctalia-shell msg launcher toggle";
+      spawn-sh "noctalia msg launcher toggle";
     }
     //Mod+Shift+S hotkey-overlay-title="Screenshot Window" { screenshot-window write-to-disk=false; }
 

@@ -7,10 +7,7 @@
 
   programs.noctalia = {
     enable = true;
-
-    # Nix automatically serializes this attribute set into ~/.config/noctalia/config.toml
     settings = {
-      # Theme settings
       theme = {
         mode = "dark";
         source = "builtin";

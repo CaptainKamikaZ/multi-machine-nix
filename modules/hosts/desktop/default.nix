@@ -29,8 +29,9 @@
   # Enable features for this host
   features.audiotools.enable = true;
   features.gaming.enable = true;
-  features.sddm.enable = true;
+  features.noctalia-greeter.enable = true;
   features.obs.enable = true;
+  features.sddm.enable = false;
   features.study.enable = true;
   features.virtualization.enable = true;
 

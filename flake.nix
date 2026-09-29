@@ -19,7 +19,7 @@
 
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     import-tree.url = "github:vic/import-tree";
@@ -41,6 +41,7 @@
               modules = [
                 path
                 inputs.home-manager.nixosModules.home-manager
+                inputs.noctalia-greeter.nixosModules.default
 
                 {
                   nixpkgs.config.allowUnfree = true;

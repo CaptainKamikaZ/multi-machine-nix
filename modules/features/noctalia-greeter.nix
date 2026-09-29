@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.features.noctalia-greeter;
@@ -7,24 +7,24 @@ in
   config = lib.mkIf cfg.enable {
     services.displayManager.noctalia-greeter = {
       enable = true;
-      settings = {
-        cursor = {
-          theme = "Bibata-Modern-Ice";
-          size = 24;
-          path = "${pkgs.bibata-cursors}/share/icons";
-        };
+      package = inputs.noctalia-greeter.packages.${pkgs.system}.default;
 
-        # Enable syncing and point it to your user account
+      passwordless-sync-users = [ "justin" ];
+
+      settings = {
+        monitors = [
+          {
+            name = "DP-3";
+            primary = true;
+          }
+        ];
+
         sync = {
           enable = true;
-          user = "justin"; # The user directory from which to read Noctalia configs
+          user = "justin";
+          wallpaper = true;
         };
       };
     };
-
-    # System package dependencies for the greeter assets
-    environment.systemPackages = [
-      pkgs.bibata-cursors
-    ];
   };
 }

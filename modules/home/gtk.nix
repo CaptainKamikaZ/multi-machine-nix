@@ -8,7 +8,6 @@
       size = 11;
     };
 
-    # Baseline dark theme structure required for GTK3 apps like Thunar
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
@@ -23,21 +22,24 @@
     };
   };
 
-  # Make sure adw-gtk3 is installed
+  # Make sure adw-gtk3 and glib are present in user packages
   home.packages = with pkgs; [
     adw-gtk3
     glib
   ];
 
-  # Import Noctalia's actual CSS target file into GTK3
-  xdg.configFile."gtk-3.0/gtk.css".text = ''
-    @import url("${config.home.homeDirectory}/.config/gtk-3.0/noctalia.css");
-  '';
-    xdg.configFile."gtk-4.0/gtk.css".text = ''
-    @import url("${config.home.homeDirectory}/.config/gtk-4.0/noctalia.css");
-  '';
+  # Force dconf/gsettings keys so GTK apps pick up the dark scheme immediately
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "adw-gtk3-dark";
+    };
+  };
 
-  # Keep your bookmarks
+  # Link the theme directly into ~/.themes so GTK3 finds adw-gtk3-dark without GTK_THEME env vars
+  home.file.".themes/adw-gtk3-dark".source = "${pkgs.adw-gtk3}/share/themes/adw-gtk3-dark";
+
+  # Keep your GTK bookmarks
   xdg.configFile."gtk-3.0/bookmarks".text = ''
     file://${config.home.homeDirectory}/Nextcloud/Documents Documents
     file://${config.home.homeDirectory}/Nextcloud/Photos Photos

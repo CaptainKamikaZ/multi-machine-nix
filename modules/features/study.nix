@@ -1,12 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 
 let
   cfg = config.features.study;
 in
 {
   config = lib.mkIf cfg.enable {
-
-    home-manager.users.justin.home.packages = lib.mkMerge [
+    
+    home-manager.users.${username}.home.packages = lib.mkMerge [
       [
         (pkgs.writeShellScriptBin "anki" ''
           export ANKI_WAYLAND=1
@@ -21,7 +21,7 @@ in
 
 
     # Override .desktop entry so launchers use Wayland
-    home-manager.users.justin.xdg.desktopEntries.anki = {
+    home-manager.users.${username}.xdg.desktopEntries.anki = {
       name = "Anki";
       exec = "env ANKI_WAYLAND=1 anki %f";
       terminal = false;

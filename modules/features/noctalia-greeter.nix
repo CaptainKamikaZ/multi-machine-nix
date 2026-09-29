@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, username, ... }:
 
 let
   cfg = config.features.noctalia-greeter;
@@ -9,12 +9,12 @@ in
       enable = true;
       package = inputs.noctalia-greeter.packages.${pkgs.system}.default;
 
-      passwordless-sync-users = [ "justin" ];
+      passwordless-sync-users = [ "${username}" ];
 
       settings = {
         sync = {
           enable = true;
-          user = "justin";
+          user = "${username}";
           wallpaper = true;
         };
       };

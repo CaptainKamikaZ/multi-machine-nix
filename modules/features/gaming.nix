@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 
 {
   config = lib.mkIf config.features.gaming.enable {
-    home-manager.users.justin.home.packages = with pkgs; [
+    home-manager.users.${username}.home.packages = with pkgs; [
       prismlauncher
     ];
     programs.steam = {

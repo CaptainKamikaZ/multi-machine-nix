@@ -47,10 +47,10 @@
   };
 
   xdg.configFile."gtk-3.0/bookmarks".text = ''
-  file:///home/justin/Nextcloud/Documents Documents
-  file:///home/justin/Nextcloud/Photos Photos
-  file:///home/justin/Videos Videos
-  file:///home/justin/Downloads Downloads
+  file://${config.home.homeDirectory}/Nextcloud/Documents Documents
+  file://${config.home.homeDirectory}/Nextcloud/Photos Photos
+  file://${config.home.homeDirectory}/Videos Videos
+  file://${config.home.homeDirectory}/Downloads Downloads
 
   # Remote shares
   file:///mnt/share/data/foundry Foundry

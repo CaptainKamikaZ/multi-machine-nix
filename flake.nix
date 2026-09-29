@@ -35,9 +35,10 @@
 
         nixosConfigurations =
           let
+            username = "justin";
             mkHost = hostName: path: nixpkgs.lib.nixosSystem {
               system = "x86_64-linux";
-              specialArgs = { inherit inputs self; };
+              specialArgs = { inherit inputs self username; };
               modules = [
                 path
                 inputs.home-manager.nixosModules.home-manager
@@ -51,13 +52,13 @@
                     useUserPackages = true;
                     backupFileExtension = "backup";
                     overwriteBackup = true;
-                    extraSpecialArgs = { inherit inputs self; };
+                    extraSpecialArgs = { inherit inputs self username; };
                     
-                    users.justin = { ... }: {
+                    users.${username} = { ... }: {
                       _module.args.device = hostName;
                       
                       imports = [
-                        ./modules/home/justin/default.nix
+                        ./modules/home/default.nix
                       ];
                     };
                   };

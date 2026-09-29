@@ -1,9 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, username, ... }:
 
 {
 
-  home.username = "justin";
-  home.homeDirectory = "/home/justin";
+  home.username = "${username}";
+  home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.11";
 
   imports = [

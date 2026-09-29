@@ -1,10 +1,10 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, username, ... }:
 
 {
-  users.users.justin = {
+  users.users.${username} = {
     isNormalUser = true;
-    home = "/home/justin";
-    description = "Justin Gabrielson";
+    home = "/home/${username}";
+    description = "${username}";
     extraGroups = [
       "wheel"
       "networkmanager"

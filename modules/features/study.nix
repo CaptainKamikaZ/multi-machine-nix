@@ -5,28 +5,27 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    
-    home-manager.users.${username}.home.packages = lib.mkMerge [
-      [
-        (pkgs.writeShellScriptBin "anki" ''
-          export ANKI_WAYLAND=1
-          export QT_QPA_PLATFORM=xcb
-          export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --disable-software-rasterizer"
-          exec ${pkgs.anki-bin}/bin/anki "$@"
-        '')      
-      ]
-      [ pkgs.mpv ]
-      [ pkgs.adwaita-qt ]
-    ];
+    home-manager.users.${username} = {
+      home.packages = lib.mkMerge [
+        [
+          (pkgs.writeShellScriptBin "anki" ''
+            export ANKI_WAYLAND=1
+            export QT_QPA_PLATFORM=xcb
+            export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --disable-software-rasterizer"
+            exec ${pkgs.anki-bin}/bin/anki "$@"
+          '')      
+        ]
+        [ pkgs.mpv ]
+        [ pkgs.adwaita-qt ]
+      ];
 
-
-    # Override .desktop entry so launchers use Wayland
-    home-manager.users.${username}.xdg.desktopEntries.anki = {
-      name = "Anki";
-      exec = "env ANKI_WAYLAND=1 anki %f";
-      terminal = false;
-      type = "Application";
-      categories = [ "Education" ];
+      xdg.desktopEntries.anki = {
+        name = "Anki";
+        exec = "env ANKI_WAYLAND=1 anki %f";
+        terminal = false;
+        type = "Application";
+        categories = [ "Education" ];
+      };
     };
   };
 }

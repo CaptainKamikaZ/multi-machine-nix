@@ -12,13 +12,6 @@ in
       passwordless-sync-users = [ "justin" ];
 
       settings = {
-        monitors = [
-          {
-            name = "DP-3";
-            primary = true;
-          }
-        ];
-
         sync = {
           enable = true;
           user = "justin";

@@ -5,10 +5,25 @@
     inputs.noctalia.homeModules.default
   ];
 
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
-  };
+    settings = {
+      theme = {
+        mode = "dark";
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
 
-  xdg.configFile."noctalia/settings.json".source =
-    ./noctalia.json;
+      # Desktop shell feature toggles
+#      shell = {
+#        polkit_agent = true; # Enabled Noctalia built-in Polkit agent
+#      };
+
+      # Wallpaper management
+      wallpaper = {
+        enabled = true;
+        # Add wallpaper paths or options here if applicable
+      };
+    };
+  };
 }

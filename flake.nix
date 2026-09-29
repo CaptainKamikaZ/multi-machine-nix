@@ -13,7 +13,12 @@
     wrapper-modules.inputs.nixpkgs.follows = "nixpkgs";
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/2461f871a602f9a5688b5b01dc19c6309dd0d519";
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -28,107 +33,43 @@
 
       flake = {
 
-        #
-        # NixOS Configurations (hosts)
-        #
-        nixosConfigurations = {
+        nixosConfigurations =
+          let
+            mkHost = hostName: path: nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = { inherit inputs self; };
+              modules = [
+                path
+                inputs.home-manager.nixosModules.home-manager
+                inputs.noctalia-greeter.nixosModules.default
 
-          hp-laptop = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
+                {
+                  nixpkgs.config.allowUnfree = true;
 
-            specialArgs = {
-              inherit inputs self;
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    backupFileExtension = "backup";
+                    overwriteBackup = true;
+                    extraSpecialArgs = { inherit inputs self; };
+                    
+                    users.justin = { ... }: {
+                      _module.args.device = hostName;
+                      
+                      imports = [
+                        ./modules/home/justin/default.nix
+                      ];
+                    };
+                  };
+                }
+              ];
             };
-
-            modules = [
-              ./modules/hosts/laptop
-
-              inputs.home-manager.nixosModules.home-manager
-
-              {
-                nixpkgs.config.allowUnfree = true;
-
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "backup";
-                home-manager.overwriteBackup = true;
-
-                home-manager.extraSpecialArgs = {
-                  inherit inputs self;
-                };
-
-                home-manager.users.justin = { config, pkgs, inputs, self, ... }: {
-                  _module.args.device = "hp-laptop";
-                  imports = [ ./modules/home/justin/default.nix ];
-                };
-              }
-            ];
+          in
+          {
+            hp-laptop = mkHost "hp-laptop" ./modules/hosts/laptop;
+            desktop   = mkHost "desktop"   ./modules/hosts/desktop;
+            thinkpad  = mkHost "thinkpad"  ./modules/hosts/thinkpad;
           };
-
-          desktop = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-
-            specialArgs = {
-              inherit inputs self;
-            };
-
-            modules = [
-              ./modules/hosts/desktop
-
-              inputs.home-manager.nixosModules.home-manager
-
-              {
-                nixpkgs.config.allowUnfree = true;
-
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "backup";
-                home-manager.overwriteBackup = true;
-
-                home-manager.extraSpecialArgs = {
-                  inherit inputs self;
-                };
-
-                home-manager.users.justin = { config, pkgs, inputs, self, ... }: {
-                  _module.args.device = "desktop";
-                  imports = [ ./modules/home/justin/default.nix ];
-                };
-              }
-            ];
-          };
-
-          thinkpad = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-
-            specialArgs = {
-              inherit inputs self;
-            };
-
-            modules = [
-              ./modules/hosts/thinkpad
-
-              inputs.home-manager.nixosModules.home-manager
-
-              {
-                nixpkgs.config.allowUnfree = true;
-
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "backup";
-                home-manager.overwriteBackup = true;
-
-                home-manager.extraSpecialArgs = {
-                  inherit inputs self;
-                };
-
-                home-manager.users.justin = { config, pkgs, inputs, self, ... }: {
-                  _module.args.device = "thinkpad";
-                  imports = [ ./modules/home/justin/default.nix ];
-                };
-              }
-            ];
-          };
-        };
       };
     };
 }

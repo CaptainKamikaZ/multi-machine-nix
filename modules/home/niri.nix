@@ -10,7 +10,7 @@ let
     rawConfig;
 
   desktopOutputs = ''
-    output "DP-3" {
+    output "DP-1" {
       mode "1920x1080@60.000"
       scale 1
       transform "normal"

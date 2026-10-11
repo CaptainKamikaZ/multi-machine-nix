@@ -1,6 +1,6 @@
 {
   networking = {
-    hostName = "hp-laptop";
+    hostName = "thinkpad";
     networkmanager.enable = true;
   };
 }

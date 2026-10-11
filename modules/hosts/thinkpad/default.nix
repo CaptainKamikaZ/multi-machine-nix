@@ -25,7 +25,9 @@
     "${inputs.self}/modules/features/default.nix"
   ];
 
-  features.sddm.enable = true;
+  features.sddm.enable = false;
+  features.noctalia-greeter.enable = true;
+  features.study.enable = true;
 
   system.stateVersion = "25.11";
 }

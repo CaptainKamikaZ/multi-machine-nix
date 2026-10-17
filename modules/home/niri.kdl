@@ -335,7 +335,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+D hotkey-overlay-title="Browse Files: thunar" { spawn "thunar"; }
     Mod+Shift+C hotkey-overlay-title="Run an Application: vs-code" { spawn "code"; }
-    Mod+B hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
+    Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
     Ctrl+Shift+Escape hotkey-overlay-title="System Resources: btop" { spawn "kitty" "-e" "btop"; }
     Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { 
       spawn-sh "noctalia msg session lock";

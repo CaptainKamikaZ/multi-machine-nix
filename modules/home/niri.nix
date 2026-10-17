@@ -10,14 +10,14 @@ let
     rawConfig;
 
   desktopOutputs = ''
-    output "DP-1" {
+    output "DP-2" {
       mode "1920x1080@60.000"
       scale 1
       transform "normal"
       position x=0 y=1080
       focus-at-startup
     }
-    output "DP-2" {
+    output "DP-1" {
       mode "1600x900@59.978"
       scale 1
       transform "270"

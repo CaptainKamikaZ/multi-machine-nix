@@ -1,7 +1,10 @@
 {
   networking = {
     hostName = "desktop";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      unmanaged = [ "interface-name:enp34s0" ];
+    };
     useDHCP = false;
 
     defaultGateway = {

@@ -31,7 +31,15 @@
   ##############################
   # System Services
   ##############################
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    domains = [ "~." ];
+  };
   services.flatpak.enable = true;
 
   services.gvfs.enable = true;

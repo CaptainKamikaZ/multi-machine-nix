@@ -10,6 +10,12 @@ let
     rawConfig;
 
   desktopOutputs = ''
+    output "DP-1" {
+      mode "1600x900@59.978"
+      scale 1
+      transform "270"
+      position x=1920 y=700
+    }
     output "DP-2" {
       mode "1920x1080@60.000"
       scale 1
@@ -17,13 +23,7 @@ let
       position x=0 y=1080
       focus-at-startup
     }
-    output "DP-1" {
-      mode "1600x900@59.978"
-      scale 1
-      transform "270"
-      position x=1920 y=700
-    }
-    output "HDMI-A-1" {
+    output "DP-3" {
       mode "1920x1080@60.000"
       scale 1
       transform "normal"

@@ -70,6 +70,7 @@
             hp-laptop = mkHost "hp-laptop" ./modules/hosts/laptop;
             desktop   = mkHost "desktop"   ./modules/hosts/desktop;
             thinkpad  = mkHost "thinkpad"  ./modules/hosts/thinkpad;
+            predator  = mkHost "predator"  ./modules/hosts/predator;
           };
       };
     };

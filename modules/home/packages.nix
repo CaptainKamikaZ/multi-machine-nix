@@ -5,7 +5,6 @@
     # CLI tools
     fastfetch
     htop
-    kitty
     lsd
     lm_sensors
 

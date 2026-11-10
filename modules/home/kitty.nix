@@ -11,9 +11,10 @@
 
     settings = {
       background_opacity = "0.8";
-      background_tint = "1.0";
+      background_tint = "0.0";
       background_blur = "32";
       dynamic_background_opacity = true;
+      unfocused_background_opacity = "0.8";
       dim_opacity = "1.0";
       window_padding_width = 8;
       cursor_blink_interval = 0;

@@ -14,7 +14,7 @@
     ./fish.nix
     ./git.nix
     ./gtk.nix
-    ./kitty.nix
+    #./kitty.nix
     ./niri.nix
     #./nixvim.nix
     ./noctalia.nix

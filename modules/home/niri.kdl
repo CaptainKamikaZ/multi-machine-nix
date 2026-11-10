@@ -74,7 +74,7 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
-  background-color "#0f1632";
+  background-color "transparent";
     // Set gaps around windows in logical pixels.
     gaps 10
 
@@ -281,6 +281,11 @@ window-rule {
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
+}
+
+window-rule {
+    match app-id=r#"^kitty$"#
+    draw-border-with-background false
 }
 
 // Open the Firefox picture-in-picture player as floating by default.

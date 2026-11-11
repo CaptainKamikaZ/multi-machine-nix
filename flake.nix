@@ -22,6 +22,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    umbriel = {
+      url = "github:noctalia-dev/umbriel";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     import-tree.url = "github:vic/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };

@@ -23,6 +23,7 @@
     ./services.nix
     ./thunar.nix
     ./tmux.nix
+    ./umbriel.nix
     ./vscode.nix
     #./wezterm.nix
     ./xdg.nix

@@ -19,5 +19,14 @@ in
         };
       };
     };
+    services.displayManager.sessionPackages = [
+      inputs.umbriel.packages.${pkgs.system}.default
+    ];
+
+    services.greetd.settings.default_session.command =
+      "${pkgs.coreutils}/bin/env "
+      + "XDG_DATA_DIRS=${config.services.displayManager.sessionData.desktops}/share "
+      + "${config.services.displayManager.noctalia-greeter.package}/bin/noctalia-greeter-session";
+
   };
 }

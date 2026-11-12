@@ -19,6 +19,9 @@
     vim
     wget
     polkit
+    grim
+    slurp
+    wl-clipboard
   ];
   programs.fish.enable = true;
   programs.niri.enable = true;

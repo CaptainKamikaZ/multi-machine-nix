@@ -9,8 +9,13 @@
     settings = {
       general.autostart = [ "noctalia" ];
       layout.gap = 5;
-      input.keyboard.layout = "us";
-
+      input = {
+        keyboard.layout = "us";
+        focus = {
+          follows_mouse = true;
+          follows_mouse_max_scroll = 0.5;
+        };
+      };  
       output = if device == "desktop" then {
         "DP-1" = {
           mode = "1600x900@59.978";
@@ -51,10 +56,10 @@
         "XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down"; allow_when_locked = true; };
 
         # Screenshots
-        "Print" = "spawn noctalia msg screenshot";
-        "Mod+Shift+S" = "spawn noctalia msg screenshot region";
-        "Mod+Shift+A" = "spawn noctalia msg screenshot screen";
-        "Mod+Shift+W" = "spawn noctalia msg screenshot window";
+        "Print" = "spawn sh -c 'grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png && notify-send \"Screenshot Saved\"'";
+        "Mod+Shift+S" = "spawn sh -c 'grim -g \"$(slurp)\" - | wl-copy && notify-send \"Region Copied to Clipboard\"'";
+        "Mod+Shift+A" = "spawn sh -c 'grim -o $(swaymsg -t get_outputs | jq -r \'.[] | select(.focused).name\') ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'";
+        "Mod+Shift+W" = "spawn sh -c 'grim -g \"$(slurp)\" - | wl-copy && notify-send \"Window Copied to Clipboard\"'";
 
         # Navigation & Workspaces
         "Mod+Left" = "window-focus-left";

@@ -10,6 +10,19 @@ in
   config = lib.mkIf cfg.enable {
     # System-level compositor enablement
     programs.umbriel.enable = true;
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        inputs.umbriel.packages.${pkgs.system}.default
+        pkgs.xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          # Fallback order for portal requests (tries Umbriel first, then GTK)
+          default = [ "umbriel" "gtk" ];
+        };
+      };
+    };
 
     # System-level greeter setup
     services.displayManager.noctalia-greeter = {

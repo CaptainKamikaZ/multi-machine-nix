@@ -1,16 +1,38 @@
+# modules/features/desktop/default.nix
 { config, lib, pkgs, inputs, username, ... }:
 
 let
-  cfg = config.features.noctalia-greeter;
+  cfg = config.features.desktop;
 in
 {
+  imports = [ 
+    inputs.umbriel.nixosModules.default 
+    inputs.noctalia.nixosModules.default
+  ];
+
   config = lib.mkIf cfg.enable {
+    # System-level compositor enablement
+    programs.umbriel.enable = true;
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        inputs.umbriel.packages.${pkgs.system}.default
+        pkgs.xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          # Fallback order for portal requests (tries Umbriel first, then GTK)
+          default = [ "umbriel" "gtk" ];
+        };
+      };
+    };
+    programs.noctalia.recommendedServices.enable = true;
+
+    # System-level greeter setup
     services.displayManager.noctalia-greeter = {
       enable = true;
       package = inputs.noctalia-greeter.packages.${pkgs.system}.default;
-
       passwordless-sync-users = [ "${username}" ];
-
       settings = {
         sync = {
           enable = true;
@@ -19,6 +41,7 @@ in
         };
       };
     };
+
     services.displayManager.sessionPackages = [
       inputs.umbriel.packages.${pkgs.system}.default
     ];
@@ -28,5 +51,11 @@ in
       + "XDG_DATA_DIRS=${config.services.displayManager.sessionData.desktops}/share "
       + "${config.services.displayManager.noctalia-greeter.package}/bin/noctalia-greeter-session";
 
+    home-manager.users.${username} = {
+      imports = [
+        ./noctalia.nix
+        ./umbriel.nix
+      ];
+    };
   };
 }

@@ -1,4 +1,5 @@
-{ inputs, lib, device, ... }:
+# modules/features/desktop/umbriel.nix
+{ config, lib, pkgs, inputs, device, ... }:
 
 {
   imports = [ inputs.umbriel.homeModules.default ];
@@ -6,10 +7,18 @@
   programs.umbriel = {
     enable = true;
     settings = {
-      general.autostart = [ "noctalia" ];
-      layout.gap = 5;
-      input.keyboard.layout = "us";
-
+      general = {
+        autostart = [ "noctalia" ];
+        show_cheatsheet = true;
+        focus_on_activate = true;
+      };
+      input = {
+        keyboard.layout = "us";
+        focus = {
+          follows_mouse = true;
+          follows_mouse_max_scroll = 0.5;
+        };
+      };  
       output = if device == "desktop" then {
         "DP-1" = {
           mode = "1600x900@59.978";
@@ -31,16 +40,70 @@
         };
       } else {};
 
+      appearance = {
+        prefer_no_csd = true;
+        border_width = 2;
+        corner_radius = 10;
+        blur = {
+          enabled = true;
+          optimized = true;
+          radius = 3;
+        };
+        shadow = {
+          enabled = true;
+          softness = 10;
+          offset_x = 2;
+          offset_y = 2;
+        };
+      };   
+
+      hot_corners.top_left = {
+        enabled = true;
+        delay_ms = 500;
+        action = "overview-open";
+      };
+
+      layout = {
+        gap = 5;
+        extent_presets = [ 0.333 0.5 0.667 ];  # for Mod+R cycling
+      };
+
+      layer_rule = [
+        {
+          match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$";
+          blur = true;
+          blur_ignore_alpha = 0.6;
+          blur_optimized = false;
+        }
+      ];
+
+      window_rule = [
+        {
+          match.app_id = "^dev.noctalia.Noctalia$";
+          default_floating = true;
+        }
+        {
+          blur = true;
+          blur_optimized = true;
+        }
+      ];   
+
       keybinds = {
-        # Applications and session
         "Mod+Return" = "spawn kitty";
         "Mod+Q" = "window-close";
         "Mod" = "spawn noctalia msg panel-toggle launcher";
+        "Mod+S" = "spawn noctalia msg settings-toggle";
         "Mod+Escape" = "session-quit";
         "Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle"; allow_when_inhibited = true; repeat = false; };
         "Ctrl+Alt+L" = { action = "spawn noctalia msg session lock"; allow_when_inhibited = true; repeat = false; };
+        "Alt+Tab" = "spawn noctalia msg window-switcher hold";
 
-        # Media, volume, and brightness
+        # Launch apps
+        "Mod+B" = "spawn brave";
+        "Mod+D" = "spawn thunar";
+        "Mod+C" = "spawn code";
+
+        # Media & Brightness
         "XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up"; allow_when_locked = true; };
         "XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down"; allow_when_locked = true; };
         "XF86AudioMute" = { action = "spawn noctalia msg volume-mute"; allow_when_locked = true; repeat = false; };
@@ -50,13 +113,13 @@
         "XF86MonBrightnessUp" = { action = "spawn noctalia msg brightness-up"; allow_when_locked = true; };
         "XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down"; allow_when_locked = true; };
 
-        # Screenshots   
-        "Print" = "spawn noctalia msg screenshot";
-        "Mod+Shift+S" = "spawn noctalia msg screenshot region";
-        "Mod+Shift+A" = "spawn noctalia msg screenshot screen";
-        "Mod+Shift+W" = "spawn noctalia msg screenshot window";
+        # Screenshots
+        "Print" = "spawn noctalia msg screenshot-fullscreen";
+        "Mod+Shift+S" = "spawn noctalia msg screenshot-region --confirm-region";
+        "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate";
+        "Mod+Shift+W" = "spawn noctalia msg screenshot-window --confirm-window";
 
-        # Focus and Movement
+        # Navigation & Workspaces
         "Mod+Left" = "window-focus-left";
         "Mod+Down" = "window-focus-down";
         "Mod+Up" = "window-focus-up";
@@ -71,7 +134,7 @@
         "Mod+Shift+Up" = "window-move-up";
         "Mod+Shift+Right" = "column-move-right";
 
-        # Window state and layout
+        # Window state
         "Mod+T" = { action = "window-toggle-floating"; repeat = false; };
         "Mod+Shift+T" = { action = "window-focus-switch-floating"; repeat = false; };
         "Mod+P" = { action = "window-toggle-pinned"; repeat = false; };
@@ -91,8 +154,8 @@
         "Mod+W" = { action = "column-toggle-tabbed"; repeat = false; };
         "Mod+Alt+Right" = "column-focus-tab-next";
         "Mod+Alt+Left" = "column-focus-tab-previous";
-        "Mod+WheelUp" = "window-focus-left";
-        "Mod+WheelDown" = "window-focus-right";
+        "Mod+WheelLeft" = "window-focus-left";
+        "Mod+WheelRight" = "window-focus-right";
         "Mod+O" = { action = "overview-toggle"; repeat = false; };
         
         # Workspaces
@@ -105,6 +168,10 @@
         "Mod+7" = "workspace-switch 7";
         "Mod+8" = "workspace-switch 8";
         "Mod+9" = "workspace-switch 9";
+        "Mod+Page_Up" = "workspace-previous";
+        "Mod+Page_Down" = "workspace-next";
+        "Mod+WheelUp" = "workspace-previous";
+        "Mod+WheelDown" = "workspace-next";
         "Mod+Shift+1" = "window-move-to-workspace 1";
         "Mod+Shift+2" = "window-move-to-workspace 2";
         "Mod+Shift+3" = "window-move-to-workspace 3";
@@ -121,6 +188,8 @@
         "Mod+Ctrl+Space" = { action = "window-restore-from-scratchpad"; repeat = false; };
         "Mod+Tab" = "scratchpad-focus-next";
       };
+
+      include.optional.files = [ "${config.home.homeDirectory}/.config/umbriel/noctalia.toml" ];
     };
   };
 }

@@ -98,6 +98,11 @@
         "Ctrl+Alt+L" = { action = "spawn noctalia msg session lock"; allow_when_inhibited = true; repeat = false; };
         "Alt+Tab" = "spawn noctalia msg window-switcher hold";
 
+        # Launch apps
+        "Mod+B" = "spawn brave";
+        "Mod+D" = "spawn thunar";
+        "Mod+C" = "spawn code";
+
         # Media & Brightness
         "XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up"; allow_when_locked = true; };
         "XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down"; allow_when_locked = true; };

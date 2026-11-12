@@ -26,7 +26,7 @@
   ];
 
   features.sddm.enable = false;
-  features.noctalia-greeter.enable = true;
+  features.desktop.enable = true;
   features.study.enable = true;
 
   system.stateVersion = "25.11";

@@ -27,7 +27,7 @@
 
   features.gaming.enable = true;
   features.sddm.enable = false;
-  features.noctalia-greeter.enable = true;
+  features.desktop.enable = true;
   features.study.enable = true;
 
   system.stateVersion = "26.05";

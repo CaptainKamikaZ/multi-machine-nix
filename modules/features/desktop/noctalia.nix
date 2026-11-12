@@ -1,3 +1,4 @@
+# modules/features/desktop/noctalia.nix
 { config, pkgs, lib, inputs, ... }:
 
 {
@@ -14,15 +15,8 @@
         builtin = "Catppuccin";
       };
 
-      # Desktop shell feature toggles
-#      shell = {
-#        polkit_agent = true; # Enabled Noctalia built-in Polkit agent
-#      };
-
-      # Wallpaper management
       wallpaper = {
         enabled = true;
-        # Add wallpaper paths or options here if applicable
       };
     };
   };

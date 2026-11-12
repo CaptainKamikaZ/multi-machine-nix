@@ -17,13 +17,11 @@
     ./kitty.nix
     ./niri.nix
     #./nixvim.nix
-    ./noctalia.nix
     ./packages.nix
     ./qt.nix
     ./services.nix
     ./thunar.nix
     ./tmux.nix
-    ./umbriel.nix
     ./vscode.nix
     #./wezterm.nix
     ./xdg.nix

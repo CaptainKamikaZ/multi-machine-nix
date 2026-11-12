@@ -1,4 +1,5 @@
-{ inputs, lib, device, ... }:
+# modules/features/desktop/umbriel.nix
+{ config, lib, pkgs, inputs, device, ... }:
 
 {
   imports = [ inputs.umbriel.homeModules.default ];
@@ -32,7 +33,6 @@
       } else {};
 
       keybinds = {
-        # Applications and session
         "Mod+Return" = "spawn kitty";
         "Mod+Q" = "window-close";
         "Mod" = "spawn noctalia msg panel-toggle launcher";
@@ -40,7 +40,7 @@
         "Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle"; allow_when_inhibited = true; repeat = false; };
         "Ctrl+Alt+L" = { action = "spawn noctalia msg session lock"; allow_when_inhibited = true; repeat = false; };
 
-        # Media, volume, and brightness
+        # Media & Brightness
         "XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up"; allow_when_locked = true; };
         "XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down"; allow_when_locked = true; };
         "XF86AudioMute" = { action = "spawn noctalia msg volume-mute"; allow_when_locked = true; repeat = false; };
@@ -50,13 +50,13 @@
         "XF86MonBrightnessUp" = { action = "spawn noctalia msg brightness-up"; allow_when_locked = true; };
         "XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down"; allow_when_locked = true; };
 
-        # Screenshots   
+        # Screenshots
         "Print" = "spawn noctalia msg screenshot";
         "Mod+Shift+S" = "spawn noctalia msg screenshot region";
         "Mod+Shift+A" = "spawn noctalia msg screenshot screen";
         "Mod+Shift+W" = "spawn noctalia msg screenshot window";
 
-        # Focus and Movement
+        # Navigation & Workspaces
         "Mod+Left" = "window-focus-left";
         "Mod+Down" = "window-focus-down";
         "Mod+Up" = "window-focus-up";
@@ -71,7 +71,7 @@
         "Mod+Shift+Up" = "window-move-up";
         "Mod+Shift+Right" = "column-move-right";
 
-        # Window state and layout
+        # Window state
         "Mod+T" = { action = "window-toggle-floating"; repeat = false; };
         "Mod+Shift+T" = { action = "window-focus-switch-floating"; repeat = false; };
         "Mod+P" = { action = "window-toggle-pinned"; repeat = false; };

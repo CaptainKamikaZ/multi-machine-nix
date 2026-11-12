@@ -29,7 +29,7 @@
   # Enable features for this host
   features.audiotools.enable = true;
   features.gaming.enable = true;
-  features.noctalia-greeter.enable = true;
+  features.desktop.enable = true;
   features.obs.enable = true;
   features.sddm.enable = false;
   features.study.enable = true;

@@ -5,7 +5,10 @@ let
   cfg = config.features.desktop;
 in
 {
-  imports = [ inputs.umbriel.nixosModules.default ];
+  imports = [ 
+    inputs.umbriel.nixosModules.default 
+    inputs.noctalia.nixosModules.default
+  ];
 
   config = lib.mkIf cfg.enable {
     # System-level compositor enablement
@@ -23,6 +26,7 @@ in
         };
       };
     };
+    programs.noctalia.recommendedServices.enable = true;
 
     # System-level greeter setup
     services.displayManager.noctalia-greeter = {

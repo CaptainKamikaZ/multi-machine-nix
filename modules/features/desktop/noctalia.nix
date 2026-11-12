@@ -8,17 +8,18 @@
 
   programs.noctalia = {
     enable = true;
+    systemd.enable = true;
     settings = {
       theme = {
         mode = "dark";
-        #source = "builtin";
-        #builtin = "Catppuccin";
       };
 
       wallpaper = {
         enabled = true;
         default.path = "~/Nextcloud/Photos/Backgrounds/wallpapers/";
       };
+
+      shell.umbriel_overview_type_to_launch_enabled = true;
     };
   };
 }

@@ -102,6 +102,7 @@
         "Mod+B" = "spawn brave";
         "Mod+D" = "spawn thunar";
         "Mod+C" = "spawn code";
+        "Ctrl+Alt+Delete" = "spawn kitty -e btop";
 
         # Media & Brightness
         "XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up"; allow_when_locked = true; };

@@ -12,6 +12,10 @@
     settings = {
       theme = {
         mode = "dark";
+        templates = {
+          enable_builtin_templates = true;
+          builtin_ids = [ "btop" "gtk3" "gtk4" "qt" "kcolorscheme" "kitty" "umbriel" "fastfetch" "gimp" "libreoffice" "obs" "obsidian" "papirus-icons" ];
+        };
       };
 
       wallpaper = {
@@ -19,7 +23,10 @@
         default.path = "~/Nextcloud/Photos/Backgrounds/wallpapers/";
       };
 
-      shell.umbriel_overview_type_to_launch_enabled = true;
+      shell = {
+        umbriel_overview_type_to_launch_enabled = true;
+        #app_icon_colorize = true;
+      };
     };
   };
-}
+}   

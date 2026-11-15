@@ -5,7 +5,7 @@ A modern, scalable NixOS configuration designed for multiple machines using a cl
 Home‑Manager, and a modular design that keeps each system reproducible and easy to maintain.
 
 This repo powers all of my NixOS machines, including desktops and laptops, with
-optional features like Niri, Noctalia, gaming, virtualization, and more.
+optional features like Umbriel, Noctalia, gaming, virtualization, and more.
 
 ---
 
@@ -14,7 +14,7 @@ optional features like Niri, Noctalia, gaming, virtualization, and more.
 - Consistent baseline configuration across all machines
 - Optional feature modules that can be toggled per host
 - Clean separation between system‑level and user‑level configuration
-- Declarative desktop environments (Niri + Noctalia)
+- Declarative desktop environments (Umbriel + Noctalia)
 - Easy onboarding for new machines
 - Reproducible builds using flakes
 
@@ -47,8 +47,8 @@ Machine-specific configuration. Each host enables the features it needs:
 ```nix
 {
   features = {
-    niri.enable = true;
-    noctalia.enable = true;
+    desktop.enable = true;
+    audiotools.enable = true;
     gaming.enable = false;
   };
 }
@@ -75,13 +75,11 @@ modules/features/
 
 Optional modules that can be toggled per host:
 
-    Niri compositor
+    Desktop environment (Umbriel, Noctalia)
 
-    Noctalia shell
+    Gaming stack (Steam, prismlauncher)
 
-    Gaming stack (Steam, MangoHUD, gamescope)
-
-    Virtualization (libvirt, qemu)
+    Virtualization (podman, distrobox)
 
     Printing
 
@@ -97,8 +95,6 @@ Home‑Manager configuration for user‑level settings:
 
     editor
 
-    desktop config
-
     dotfiles
 
 ### 🖥 Adding a New Machine
@@ -110,8 +106,8 @@ hosts/my-machine/default.nix
 
 {
   features = {
-    niri.enable = true;
-    noctalia.enable = true;
+    desktop.enable = true;
+    audiotools.enable = true;
     gaming.enable = false;
   };
 }

@@ -15,7 +15,7 @@
       input = {
         keyboard.layout = "us";
         focus = {
-          follows_mouse = true;
+          follows_mouse = "always";
           follows_mouse_max_scroll = 0.5;
         };
       };  

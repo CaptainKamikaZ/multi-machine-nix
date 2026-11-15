@@ -10,20 +10,16 @@
     ./bash.nix
     ./btop.nix
     ./cava.nix
+    ./fastfetch.nix
     ./firefox.nix
     ./fish.nix
     ./git.nix
-    ./gtk.nix
     ./kitty.nix
-    ./niri.nix
     #./nixvim.nix
     ./packages.nix
-    ./qt.nix
     ./services.nix
-    ./thunar.nix
     ./tmux.nix
     ./vscode.nix
-    #./wezterm.nix
     ./xdg.nix
     ./zathura.nix
   ];

@@ -53,7 +53,10 @@ in
 
     home-manager.users.${username} = {
       imports = [
+        ./gtk.nix
         ./noctalia.nix
+        ./qt.nix
+        ./thunar.nix
         ./umbriel.nix
       ];
     };

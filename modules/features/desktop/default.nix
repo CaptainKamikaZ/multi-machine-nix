@@ -59,6 +59,7 @@ in
         ./cava.nix
         ./firefox.nix
         ./gtk.nix
+        ./kitty.nix
         ./noctalia.nix
         ./qt.nix
         ./umbriel.nix

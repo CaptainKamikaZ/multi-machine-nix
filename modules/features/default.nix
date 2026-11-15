@@ -5,8 +5,10 @@
   imports = [
     ./obs.nix
     ./audiotools.nix
+    ./fonts.nix
     ./gaming.nix
     ./networktools.nix
+    ./printing.nix
     ./desktop/default.nix
     ./sddm.nix
     ./study.nix
@@ -18,6 +20,7 @@
     audiotools.enable = lib.mkEnableOption "Audio tools";
     gaming.enable = lib.mkEnableOption "Gaming applications";
     networktools.enable = lib.mkEnableOption "Enable a comprehensive suite of network diagnostic and analysis tools";
+    printing.enable = lib.mkEnableOption "Printing support";
     desktop.enable = lib.mkEnableOption "Noctalia Greeter, Noctalia, and Umbriel";
     sddm.enable = lib.mkEnableOption "SDDM display manager";
     study.enable = lib.mkEnableOption "Study tools";

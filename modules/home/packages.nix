@@ -13,6 +13,7 @@
     brave
     filezilla
     gimp
+    libreoffice
     nextcloud-client
     obsidian
     thunderbird

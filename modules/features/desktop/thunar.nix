@@ -13,4 +13,9 @@
 
   xdg.configFile."Thunar/uca.xml".source =
     "${inputs.self}/dotfiles/thunar/uca.xml";
+
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  services.tumbler.enable = true;
+
 }

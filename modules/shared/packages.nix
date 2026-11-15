@@ -9,7 +9,6 @@
     git
     gvfs
     inetutils
-    libreoffice
     lshw
     neovim
     pciutils
@@ -21,5 +20,4 @@
     polkit
   ];
   programs.fish.enable = true;
-  programs.niri.enable = true;
 }

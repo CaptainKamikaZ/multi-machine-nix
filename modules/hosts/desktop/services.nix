@@ -10,11 +10,6 @@
   # Plasma 6 stays available as an alternate session
   services.desktopManager.plasma6.enable = true;
 
-  # Register Niri session
-  services.displayManager.sessionPackages = [
-    pkgs.niri
-  ];
-
   # Boot to graphical target
   systemd.defaultUnit = "graphical.target";
 

@@ -5,9 +5,6 @@
 
   services.desktopManager.plasma6.enable = true;
   systemd.defaultUnit = "graphical.target";
-  services.displayManager.sessionPackages = [
-    pkgs.niri
-  ];
 
   # Laptop-specific
   powerManagement.enable = true;

@@ -8,6 +8,8 @@ in
   imports = [ 
     inputs.umbriel.nixosModules.default 
     inputs.noctalia.nixosModules.default
+    ./audio.nix
+    ./fonts.nix
   ];
 
   config = lib.mkIf cfg.enable {
@@ -53,11 +55,14 @@ in
 
     home-manager.users.${username} = {
       imports = [
+        ./cava.nix
+        ./firefox.nix
         ./gtk.nix
         ./noctalia.nix
         ./qt.nix
         ./thunar.nix
         ./umbriel.nix
+        ./vscode.nix
       ];
     };
   };

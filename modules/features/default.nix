@@ -5,7 +5,6 @@
   imports = [
     ./obs.nix
     ./audiotools.nix
-    ./fonts.nix
     ./gaming.nix
     ./networktools.nix
     ./printing.nix

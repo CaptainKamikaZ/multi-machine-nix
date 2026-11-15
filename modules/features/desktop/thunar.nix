@@ -1,21 +1,28 @@
-{ config, pkgs, lib, inputs, self, ... }:
+# modules/features/desktop/thunar.nix
+{ config, pkgs, lib, inputs, username, ... }:
 
+let
+  cfg = config.features.desktop;
+in
 {
-  # Install Thunar + plugins
-  home.packages = with pkgs; [
-    xfce.thunar
-    xfce.thunar-volman
-  ];
+  config = lib.mkIf cfg.enable {
+    # System-level services
+    services.gvfs.enable = true;
+    services.udisks2.enable = true;
+    services.tumbler.enable = true;
 
-  # Declarative Thunar config files
-  xdg.configFile."Thunar/accels.scm".source =
-    "${inputs.self}/dotfiles/thunar/accels.scm";
+    # User-level packages and configs
+    home-manager.users.${username} = {
+      home.packages = with pkgs; [
+        xfce.thunar
+        xfce.thunar-volman
+      ];
 
-  xdg.configFile."Thunar/uca.xml".source =
-    "${inputs.self}/dotfiles/thunar/uca.xml";
+      xdg.configFile."Thunar/accels.scm".source =
+        "${inputs.self}/dotfiles/thunar/accels.scm";
 
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
-  services.tumbler.enable = true;
-
+      xdg.configFile."Thunar/uca.xml".source =
+        "${inputs.self}/dotfiles/thunar/uca.xml";
+    };
+  };
 }

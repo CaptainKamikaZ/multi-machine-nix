@@ -10,6 +10,7 @@ in
     inputs.noctalia.nixosModules.default
     ./audio.nix
     ./fonts.nix
+    ./thunar.nix
   ];
 
   config = lib.mkIf cfg.enable {
@@ -60,7 +61,6 @@ in
         ./gtk.nix
         ./noctalia.nix
         ./qt.nix
-        ./thunar.nix
         ./umbriel.nix
         ./vscode.nix
       ];

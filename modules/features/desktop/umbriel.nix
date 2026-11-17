@@ -100,7 +100,7 @@
 
         # Launch apps
         "Mod+B" = "spawn brave";
-        "Mod+D" = "spawn thunar";
+        "Mod+D" = "spawn luciole";
         "Mod+C" = "spawn code";
         "Ctrl+Alt+Delete" = "spawn kitty -e btop";
 

@@ -14,7 +14,7 @@
         mode = "dark";
         templates = {
           enable_builtin_templates = true;
-          builtin_ids = [ "btop" "gtk3" "gtk4" "qt" "kcolorscheme" "kitty" "umbriel" "fastfetch" "gimp" "libreoffice" "obs" "obsidian" "papirus-icons" ];
+          builtin_ids = [ "btop" "gtk3" "gtk4" "qt" "kcolorscheme" "kitty" "umbriel" "fastfetch" "gimp" "libreoffice" "obs" "obsidian" "papirus-icons" "luciole" ];
         };
       };
 

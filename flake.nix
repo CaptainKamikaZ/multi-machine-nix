@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    luciole = {
+      url = "github:noctalia-dev/luciole";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     import-tree.url = "github:vic/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };

@@ -60,6 +60,7 @@ in
         ./firefox.nix
         ./gtk.nix
         ./kitty.nix
+        ./luciole.nix
         ./noctalia.nix
         ./qt.nix
         ./umbriel.nix

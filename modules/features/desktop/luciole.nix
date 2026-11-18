@@ -1,19 +1,24 @@
 # modules/features/desktop/luciole.nix
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, username, ... }:
 
 {
-  imports = [
-    inputs.luciole.homeModules.default
-  ];
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
-  home.packages = [
-    inputs.luciole.packages.${pkgs.system}.default
-  ];
+  home-manager.users.${username} = {
+    imports = [
+      inputs.luciole.homeModules.default
+    ];
 
-  programs.luciole = {
-    enable = true;
-    settings = {
+    home.packages = [
+      inputs.luciole.packages.${pkgs.system}.default
+    ];
 
+    programs.luciole = {
+      enable = true;
+      settings = {
+        
+      };
     };
   };
 }

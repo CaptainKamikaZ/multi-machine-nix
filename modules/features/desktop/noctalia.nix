@@ -25,7 +25,6 @@
 
       shell = {
         umbriel_overview_type_to_launch_enabled = true;
-        #app_icon_colorize = true;
       };
     };
   };

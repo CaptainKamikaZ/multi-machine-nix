@@ -22,7 +22,6 @@
     xwayland-satellite
 
     # KDE packages
-    kdePackages.breeze
     kdePackages.kate
     kdePackages.kdenlive
 

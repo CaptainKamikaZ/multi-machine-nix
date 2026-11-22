@@ -20,7 +20,7 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = [
-        inputs.umbriel.packages.${pkgs.system}.default
+        inputs.umbriel.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgs.xdg-desktop-portal-gtk
       ];
       config = {
@@ -35,7 +35,7 @@ in
     # System-level greeter setup
     services.displayManager.noctalia-greeter = {
       enable = true;
-      package = inputs.noctalia-greeter.packages.${pkgs.system}.default;
+      package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
       passwordless-sync-users = [ "${username}" ];
       settings = {
         sync = {
@@ -47,7 +47,7 @@ in
     };
 
     services.displayManager.sessionPackages = [
-      inputs.umbriel.packages.${pkgs.system}.default
+      inputs.umbriel.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     services.greetd.settings.default_session.command =

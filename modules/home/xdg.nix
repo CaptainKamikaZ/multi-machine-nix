@@ -4,5 +4,6 @@
   xdg.userDirs = {
     enable = true;
     desktop = null;
+    setSessionVariables = true;
   };
 }

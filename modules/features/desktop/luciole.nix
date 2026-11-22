@@ -11,7 +11,7 @@
     ];
 
     home.packages = [
-      inputs.luciole.packages.${pkgs.system}.default
+      inputs.luciole.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     programs.luciole = {

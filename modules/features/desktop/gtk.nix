@@ -18,8 +18,11 @@
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
+    gtk4 = {
+      extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
+      theme = null;
     };
   };
 
@@ -30,13 +33,13 @@
     @import url("noctalia.css");
   '';
 
-  xdg.configFile."gtk-3.0/bookmarks".text = ''
-    file://${config.home.homeDirectory}/Nextcloud/Documents Documents
-    file://${config.home.homeDirectory}/Nextcloud/Photos Photos
-    file://${config.home.homeDirectory}/Videos Videos
-    file://${config.home.homeDirectory}/Downloads Downloads
-
-    # Remote shares
-    file:///mnt/share/media Media
-  '';
+#  xdg.configFile."gtk-3.0/bookmarks".text = ''
+#    file://${config.home.homeDirectory}/Nextcloud/Documents Documents
+#    file://${config.home.homeDirectory}/Nextcloud/Photos Photos
+#    file://${config.home.homeDirectory}/Videos Videos
+#    file://${config.home.homeDirectory}/Downloads Downloads
+#
+#    # Remote shares
+#    file:///mnt/share/media Media
+#  '';
 }   

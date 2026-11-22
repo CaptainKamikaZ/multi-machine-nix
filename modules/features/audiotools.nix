@@ -7,7 +7,7 @@
 
       home.packages = with pkgs; [
         easyeffects
-        helvum
+        crosspipe
       ];
     };
   };

@@ -7,5 +7,11 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+
+    extraConfig.pipewire."99-silent-bell" = {
+      "context.properties" = {
+        "module.x11.bell" = false;
+      };
+    };
   };
 }

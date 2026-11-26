@@ -190,7 +190,10 @@
         "Mod+Tab" = "scratchpad-focus-next";
       };
 
-      include.optional.files = [ "${config.home.homeDirectory}/.config/umbriel/noctalia.toml" ];
+      include.optional.files = [ 
+        "${config.home.homeDirectory}/.config/umbriel/noctalia.toml"
+        "${config.home.homeDirectory}/.config/umbriel/outputs.toml"
+      ];
     };
   };
 }
